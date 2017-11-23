@@ -1,23 +1,31 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import glamorous from 'glamorous-native'
+import { Text, View } from 'react-native'
+import { colorBlack } from './constants/colors'
 
-export default class App extends Component {
+const SplashView = glamorous.view({
+
+})
+
+const SplashTitle = glamorous.text({
+
+})
+
+class App extends Component {
+
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text>Open up App.js to start working on your app!</Text>
-				<Text>Changes you make will automatically reload.</Text>
-				<Text>Shake your phone to open the developer menu.</Text>
+			<View>
+				<SplashView>
+					<SplashTitle>
+						Flashcards
+					</SplashTitle>
+
+
+				</SplashView>
 			</View>
 		)
 	}
 }
 
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center'
-	}
-})
+export default App
