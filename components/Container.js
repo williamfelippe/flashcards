@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import glamorous from 'glamorous-native'
-import { defaultPadding } from '../contants/dimens'
-import { colorBase } from '../contants/colors'
+import { defaultPadding } from '../constants/dimens.js'
+import { colorBase } from '../constants/colors.js'
 
 const ContainerView = glamorous.view({
     padding: defaultPadding,

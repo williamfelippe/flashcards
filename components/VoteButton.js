@@ -1,16 +1,16 @@
+import React from 'react'
 import PropTypes from 'prop-types'
 import glamorous from 'glamorous-native'
-import { white, green, red } from '../constants/colors'
 import { Feather } from '@expo/vector-icons'
+import { colorWhite, colorGreen, colorRed } from '../constants/colors.js'
 
 const VoteTouchableHighlight = glamorous.touchableHighlight(
     {
-        color: white,
-        borderRadius: '50%',
+        borderRadius: 50,
         padding: 30
     },
     (props) => {
-        backgroundColor: props.positive ? green : red
+        backgroundColor: props.positive ? colorGreen : colorRed
     }
 )
 

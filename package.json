@@ -14,11 +14,11 @@
 		"preset": "jest-expo"
 	},
 	"dependencies": {
-		"expo": "^23.0.1",
+		"expo": "^23.0.2",
 		"glamorous-native": "^1.2.0",
 		"prop-types": "^15.6.0",
 		"react": "^16.1.1",
-		"react-native": "^0.50.3",
+		"react-native": "^0.50.4",
 		"react-navigation": "^1.0.0-beta.21",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2"
