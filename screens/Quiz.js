@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import withDefaultStatusBar from '../utils/withDefaultStatusBar.js'
+import { View, Text } from 'react-native'
 
 class Quiz extends Component {
     render() {
         return (
-            <View></View>
+            <View>
+                <Text>
+                    qqqqq
+                </Text>
+            </View>
         )
     }
 }
 
-export default withDefaultStatusBar(Quiz)
+export default Quiz

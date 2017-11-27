@@ -1,18 +1,24 @@
 import React, { Component } from 'react'
-import {View, Text} from 'react-native'
-//import { HomeNavigation } from '../navigation'
-import withDefaultStatusBar from '../utils/withDefaultStatusBar.js'
+import { View, Text, StatusBar } from 'react-native'
+import { colorWhite, colorPrimary, colorPrimaryDark } from '../constants/colors.js'
+import { HomeNavigation } from '../navigation'
 
 class Home extends Component {
+    static navigationOptions = {
+        headerTitleStyle: {
+            color: colorWhite
+        },
+        headerStyle: {
+            backgroundColor: colorPrimary,
+            marginTop: StatusBar.currentHeight
+        }
+    }
+
     render() {
         return (
-            <View>
-                <Text>
-                    aaaa
-                </Text>
-            </View>
+            <HomeNavigation />
         )
     }
 }
 
-export default withDefaultStatusBar(Home)
+export default Home

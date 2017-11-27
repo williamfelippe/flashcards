@@ -1,18 +1,41 @@
 import { TabNavigator } from 'react-navigation'
-import { Decks, Quiz } from '../screens'
+import { Decks, NewDeck } from '../screens'
+import {
+	colorPrimary,
+	colorWhite,
+	colorPrimaryDark
+} from '../constants/colors.js'
 
 const HomeNavigation = TabNavigator(
 	{
 		Decks: {
-			screen: Decks
+			screen: Decks,
+			navigationOptions: ({ navigation }) => ({
+				title: 'Decks',
+			})
 		},
-		Quiz: {
-			screen: Quiz
+		NewDeck: {
+			screen: NewDeck,
+			navigationOptions: ({ navigation }) => ({
+				title: 'NewDeck',
+			})
 		}
 	},
 	{
-		initialRouteName: 'Decks',
-		headerMode: 'none'
+		tabBarPosition: 'top',
+		animationEnabled: true,
+		tabBarOptions: {
+			labelStyle: {
+				color: colorWhite,
+				fontSize: 16
+			},
+			style: {
+				backgroundColor: colorPrimary
+			},
+			indicatorStyle: {
+				backgroundColor: colorWhite
+			}
+		}
 	}
 )
 
