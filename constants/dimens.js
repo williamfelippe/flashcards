@@ -1,2 +1,2 @@
-export const defaultPadding = 15;
+export const defaultPadding = 10;
 export const defaultTextSize = 16;

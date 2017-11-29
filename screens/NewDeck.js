@@ -49,7 +49,6 @@ class NewDeck extends Component {
 
     render() {
         return (
-
             <NewDeckView>
                 <KeyboardAvoidingView behavior="height">
                     <NewDeckTitle>

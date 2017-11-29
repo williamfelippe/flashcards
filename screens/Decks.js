@@ -1,14 +1,33 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { FlatList } from 'react-native'
+import { Container, DeckCard } from '../components'
+
+const data = [
+    { 
+        name: 'New deck', 
+        amount: 3 
+    }, 
+    { 
+        name: 'New deck 2', 
+        amount: 1 
+    }
+]
 
 class Decks extends Component {
     render() {
+        const { rootNavigation } = this.props.screenProps
+        
         return (
-            <View>
-                <Text>
-                    dddd
-                </Text>
-            </View>
+            <Container>
+                <FlatList
+                    keyExtractor={(item, index) => index}
+                    data={data}
+                    renderItem={({ item }) => {
+                        return (
+                            <DeckCard deck={item} navigation={rootNavigation} />
+                        )
+                    }} />
+            </Container>
         )
     }
 }

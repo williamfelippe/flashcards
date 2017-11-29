@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, StatusBar } from 'react-native'
+import { Text } from 'react-native'
 import { BasicButton } from '../components'
 import {
     colorBlack,
@@ -27,30 +27,18 @@ const OpenTitle = glamorous.text({
 })
 
 class Open extends Component {
-    static navigationOptions = {
-        headerTitleStyle: {
-            color: colorWhite
-        },
-        headerStyle: {
-            backgroundColor: colorPrimary,
-            marginTop: StatusBar.currentHeight
-        }
-    }
-
     render() {
         const { navigation } = this.props
 
         return (
             <OpenView>
-                <StatusBar backgroundColor={colorPrimaryDark} />
-
                 <OpenTitle>
                     Flashcards
                 </OpenTitle>
 
-                <BasicButton 
-                        text="Start" 
-                        onPress={() => navigation.navigate('Home')} />
+                <BasicButton
+                    text="Start"
+                    onPress={() => navigation.navigate('Home')} />
             </OpenView>
         )
     }

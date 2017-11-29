@@ -6,7 +6,8 @@ import { colorBase } from '../constants/colors.js'
 
 const ContainerView = glamorous.view({
     padding: defaultPadding,
-    backgroundColor: colorBase
+    backgroundColor: colorBase,
+    flex: 1
 })
 
 const Container = ({ children }) =>  {

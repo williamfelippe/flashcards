@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { Container } from '../components'
-import { StyleSheet, Text, View } from 'react-native'
-import withDefaultStatusBar from '../utils/withDefaultStatusBar.js'
+import { Text } from 'react-native'
 
 class DeckDetail extends Component {
 	render() {
 		return (
 			<Container>
-                <Text>
+				<Text>
 					aaaa
 				</Text>
 			</Container>
@@ -15,4 +14,4 @@ class DeckDetail extends Component {
 	}
 }
 
-export default withDefaultStatusBar(DeckDetail)
+export default DeckDetail

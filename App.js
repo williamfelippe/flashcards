@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { RootNavigation } from './navigation'
+import { View, StatusBar } from 'react-native'
 import { Font } from 'expo'
+import { RootNavigation } from './navigation'
 import { Loader } from './components'
+import { colorPrimaryDark } from './constants/colors.js'
 
 class App extends Component {
 
@@ -25,9 +27,14 @@ class App extends Component {
 
 	render() {
 		return (
-			!this.state.fontLoaded
-				? <Loader />
-				: <RootNavigation />
+			<View style={{ flex: 1 }}>
+				<StatusBar backgroundColor={colorPrimaryDark} />
+				{
+					!this.state.fontLoaded
+						? <Loader />
+						: <RootNavigation />
+				}
+			</View>
 		)
 	}
 }

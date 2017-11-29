@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import glamorous from 'glamorous-native'
-import { colorWhite, colorPrimary } from '../constants/colors.js'
+import { colorWhite, colorPrimary, colorPrimaryDark } from '../constants/colors.js'
 
 const BasicButtonTouchableHighlight = glamorous.touchableHighlight({
     backgroundColor: colorPrimary,
@@ -20,7 +20,9 @@ const BasicButtonText = glamorous.text({
 
 const BasicButton = ({ text, onPress }) => {
     return (
-        <BasicButtonTouchableHighlight onPress={onPress}>
+        <BasicButtonTouchableHighlight 
+            onPress={onPress} 
+            underlayColor={colorPrimaryDark}>
             <BasicButtonText>
                 {text}
             </BasicButtonText>

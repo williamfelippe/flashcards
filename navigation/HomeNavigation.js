@@ -2,8 +2,9 @@ import { TabNavigator } from 'react-navigation'
 import { Decks, NewDeck } from '../screens'
 import {
 	colorPrimary,
-	colorWhite,
-	colorPrimaryDark
+	colorPrimaryDark,
+	colorAccent,
+	colorWhite
 } from '../constants/colors.js'
 
 const HomeNavigation = TabNavigator(
@@ -27,13 +28,13 @@ const HomeNavigation = TabNavigator(
 		tabBarOptions: {
 			labelStyle: {
 				color: colorWhite,
-				fontSize: 16
+				fontSize: 14
 			},
 			style: {
 				backgroundColor: colorPrimary
 			},
 			indicatorStyle: {
-				backgroundColor: colorWhite
+				backgroundColor: colorAccent
 			}
 		}
 	}
