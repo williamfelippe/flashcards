@@ -12,13 +12,13 @@ const HomeNavigation = TabNavigator(
 		Decks: {
 			screen: Decks,
 			navigationOptions: ({ navigation }) => ({
-				title: 'Decks',
+				title: 'Decks'
 			})
 		},
 		NewDeck: {
 			screen: NewDeck,
 			navigationOptions: ({ navigation }) => ({
-				title: 'NewDeck',
+				title: 'NewDeck'
 			})
 		}
 	},
