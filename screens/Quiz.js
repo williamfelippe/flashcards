@@ -6,7 +6,7 @@ import glamorous from 'glamorous-native'
 const QuizQuestion = glamorous.text({
     fontSize: 30,
     fontFamily: 'ubuntu-bold',
-    textAlign: center
+    textAlign: 'center'
 })
 
 const QuizChangeCardButton = glamorous.touchableHighlight({

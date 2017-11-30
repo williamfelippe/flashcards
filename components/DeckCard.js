@@ -15,6 +15,14 @@ const DeckCardTouchableHighlight = glamorous.touchableHighlight({
     backgroundColor: colorWhite,
     borderRadius: 5,
     marginBottom: 10,
+    elevation: 3,
+    shadowColor: colorBlack,
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 1,
+      width: 0.3
+    }
 })
 
 const DeckCardView = glamorous.view({
