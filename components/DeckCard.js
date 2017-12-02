@@ -13,12 +13,11 @@ import glamorous from 'glamorous-native'
 
 const DeckCardTouchableHighlight = glamorous.touchableHighlight({
     backgroundColor: colorWhite,
-    borderRadius: 5,
     marginBottom: 10,
     elevation: 3,
     shadowColor: colorBlack,
     shadowOpacity: 0.3,
-    shadowRadius: 5,
+    shadowRadius: 10,
     shadowOffset: {
       height: 1,
       width: 0.3
@@ -32,6 +31,7 @@ const DeckCardView = glamorous.view({
 })
 
 const DeckCardTitle = glamorous.text({
+    fontFamily: 'ubuntu-bold',
     fontSize: 20,
     fontWeight: '900',
     marginBottom: 10,
@@ -45,13 +45,9 @@ const DeckCardInfo = glamorous.text({
 
 const DeckCard = ({ deck, navigation }) => {
 
-    onPress = () => {
-        navigation.navigate('DeckDetail', { deck })
-    }
-
     return (
         <DeckCardTouchableHighlight 
-            onPress={onPress} 
+            onPress={() => navigation.navigate('DeckDetail', { deck })} 
             underlayColor={colorGreen}>
             <DeckCardView>
                 <DeckCardTitle>

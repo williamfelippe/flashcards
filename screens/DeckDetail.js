@@ -1,32 +1,61 @@
 import React, { Component } from 'react'
 import { Container, BasicButton } from '../components'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
+import { colorTextDefault, colorGreen, colorRed } from '../constants/colors.js'
+import glamorous from 'glamorous-native'
+
+const DeckDetailView = glamorous.view({
+	flexGrow: 1,
+	justifyContent: 'center',
+	alignItems: 'center'
+})
+
+const DeckDetailTitle = glamorous.text({
+	fontFamily: 'ubuntu-bold',
+	fontSize: 40,
+	fontWeight: '900',
+	marginBottom: 10,
+	color: colorTextDefault,
+	textAlign: 'center'
+})
+
+const DeckDetailInfo = glamorous.text({
+	fontSize: 20,
+	color: colorTextDefault,
+	opacity: 0.7,
+	textAlign: 'center'
+})
 
 class DeckDetail extends Component {
-	componentDidMount() {
-		console.log('DECK DETAIL PROPS', this.props)
-	}
-
 	render() {
-		const { navigator } = this.props
+		const { navigation } = this.props
+		const { deck } = navigation.state.params
 
 		return (
 			<Container>
-				<Text>
-					Udacicards
-				</Text>
+				<View style={{ flex: 1 }}>
+					<DeckDetailView>
+						<DeckDetailTitle>
+							{deck.name.toUpperCase()}
+						</DeckDetailTitle>
 
-				<Text>
-					3 cards
-                </Text>
+						<DeckDetailInfo>
+							{deck.amount} cards
+                		</DeckDetailInfo>
+					</DeckDetailView>
 
-				<BasicButton 
-					text="Add Card"
-					onPress={() => navigator.navigate('NewQuestion')} />
+					<View>
+						<BasicButton
+							text="Add Card"
+							backgroundColor={colorRed}
+							onPress={() => navigation.navigate('NewQuestion', { deck })} />
 
-				<BasicButton 
-					text="Start Quiz"
-					onPress={() => navigator.navigate('Quiz')} />
+						<BasicButton
+							text="Start Quiz"
+							backgroundColor={colorGreen}
+							onPress={() => navigation.navigate('Quiz', { deck })} />
+					</View>
+				</View>
 			</Container>
 		)
 	}

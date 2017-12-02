@@ -1,4 +1,5 @@
-import { StatusBar } from 'react-native'
+import React from 'react'
+import { StatusBar, View } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { colorWhite, colorPrimary } from '../constants/colors.js'
 import {
@@ -11,13 +12,13 @@ import {
 const style = {
 	headerTitleStyle: {
 		color: colorWhite,
-		textAlign: 'center',
 		alignSelf: 'center'
 	},
 	headerStyle: {
 		backgroundColor: colorPrimary,
 		elevation: 0
 	},
+	headerRight: (<View></View>),
 	headerTintColor: colorWhite
 }
 
@@ -27,10 +28,11 @@ const RootNavigation = StackNavigator(
 			screen: Home,
 			navigationOptions: ({ navigation }) => ({
 				title: 'Home',
-				...style
+				...style,
+				headerLeft: (<View></View>)
 			})
 		},
-		NewDeck: { 
+		Quiz: { 
 			screen: Quiz,
 			navigationOptions: ({ navigation }) => ({
 				title: 'Quiz',

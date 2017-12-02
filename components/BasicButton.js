@@ -9,19 +9,20 @@ const BasicButtonTouchableHighlight = glamorous.touchableHighlight(
         paddingRight: 40,
         paddingTop: 15,
         paddingBottom: 15,
-        borderRadius: 5
+        borderRadius: 5,
+        marginBottom: 10
     },
-    ({ backgroundColor }) => ({
-        backgroundColor: backgroundColor ? backgroundColor : colorPrimary
-    })
+    ({ backgroundColor }) => ({ backgroundColor })
 )
 
 const BasicButtonText = glamorous.text(
     {
-        fontSize: 20
+        fontWeight: '700',
+        textAlign: 'center'
     },
-    ({ textColor }) => ({
-        color: textColor ? textColor : colorWhite
+    ({ textColor, fontSize }) => ({
+        color: textColor,
+        fontSize
     })
 )
 
@@ -30,28 +31,28 @@ const BasicButton = ({
     onPress,
     textColor,
     backgroundColor,
-    underlayColor
+    underlayColor,
+    fontSize
 }) => {
     return (
         <BasicButtonTouchableHighlight
             onPress={onPress}
             backgroundColor={backgroundColor}
-            underlayColor={
-                (underlayColor)
-                    ? underlayColor
-                    : colorPrimaryDark
-            }>
-            <BasicButtonText textColor={textColor}>
-                {text}
+            underlayColor={underlayColor}>
+            <BasicButtonText 
+                textColor={textColor}
+                fontSize={fontSize}>
+                {text.toUpperCase()}
             </BasicButtonText>
         </BasicButtonTouchableHighlight>
     )
 }
 
 BasicButton.defaultProps = {
-    textColor: null,
-    backgroundColor: null,
-    underlayColor: null
+    textColor: colorWhite,
+    backgroundColor: colorPrimary,
+    underlayColor: colorPrimaryDark,
+    fontSize: 18
 }
 
 BasicButton.propTypes = {
@@ -59,7 +60,8 @@ BasicButton.propTypes = {
     onPress: PropTypes.func.isRequired,
     textColor: PropTypes.string,
     backgroundColor: PropTypes.string,
-    underlayColor: PropTypes.string
+    underlayColor: PropTypes.string,
+    fontSize: PropTypes.number
 }
 
 export default BasicButton
