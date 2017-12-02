@@ -1,23 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import glamorous from 'glamorous-native'
 import { Feather } from '@expo/vector-icons'
 import { colorWhite, colorGreen, colorRed } from '../constants/colors.js'
+import glamorous from 'glamorous-native'
 
 const VoteTouchableHighlight = glamorous.touchableHighlight(
     {
+        width: 70,
+        height: 70,
         borderRadius: 50,
-        padding: 30
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    (props) => {
-        backgroundColor: props.positive ? colorGreen : colorRed
-    }
+    ({ positive }) => ({
+        backgroundColor: positive ? colorGreen : colorRed
+    })
 )
 
+const VoteTouchableText = glamorous.text({
+    color: colorWhite
+})
+
 const VoteButton = ({ positive }) => {
-    <VoteTouchableHighlight>
-        <Feather name={positive ? "check" : "x"} />
-    </VoteTouchableHighlight>
+    return (
+        <VoteTouchableHighlight positive={positive}>
+            <Feather
+                name={positive ? "check" : "x"}
+                color={colorWhite}
+                size={40} />
+        </VoteTouchableHighlight>
+    )
 }
 
 VoteButton.defaultProps = {
