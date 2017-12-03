@@ -9,6 +9,7 @@ import {
     colorTextDefault,
     colorGreen
 } from '../constants/colors.js'
+import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
 
 const DeckCardTouchableHighlight = glamorous.touchableHighlight({
@@ -35,12 +36,13 @@ const DeckCardTitle = glamorous.text({
     fontSize: 20,
     fontWeight: '900',
     marginBottom: 10,
-    color: colorBlack
+    color: colorTextDefault
 })
 
 const DeckCardInfo = glamorous.text({
     fontSize: 14,
-    color: colorTextDefault
+    color: colorTextDefault,
+    opacity: 0.6
 })
 
 const DeckCard = ({ deck, navigation }) => {
@@ -55,7 +57,7 @@ const DeckCard = ({ deck, navigation }) => {
                 </DeckCardTitle>
 
                 <DeckCardInfo>
-                    {deck.amount} cards
+                    {getAmountOfQuestions(deck.questions)}
                 </DeckCardInfo>
             </DeckCardView>
         </DeckCardTouchableHighlight>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, BasicButton } from '../components'
 import { Text, View } from 'react-native'
 import { colorTextDefault, colorGreen, colorRed } from '../constants/colors.js'
+import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
 
 const DeckDetailView = glamorous.view({
@@ -40,7 +41,7 @@ class DeckDetail extends Component {
 						</DeckDetailTitle>
 
 						<DeckDetailInfo>
-							{deck.amount} cards
+							{getAmountOfQuestions(deck.questions)}
                 		</DeckDetailInfo>
 					</DeckDetailView>
 

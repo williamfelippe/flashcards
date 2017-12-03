@@ -1,25 +1,19 @@
 import React, { Component } from 'react'
 import { FlatList } from 'react-native'
 import { Container, DeckCard } from '../components'
-import { getDecks } from '../utils/session.js'
 
 const data = [
     { 
         name: 'New deck', 
-        amount: 3 
+        questions: []
     }, 
     { 
         name: 'New deck 2', 
-        amount: 1 
+        questions: []
     }
 ]
 
 class Decks extends Component {
-
-    async componentDidMount() {
-        const decks = await getDecks()
-        console.log('DECKS', decks)
-    }
 
     render() {
         const { rootNavigation } = this.props.screenProps
@@ -31,7 +25,9 @@ class Decks extends Component {
                     data={data}
                     renderItem={({ item }) => {
                         return (
-                            <DeckCard deck={item} navigation={rootNavigation} />
+                            <DeckCard 
+                                deck={item} 
+                                navigation={rootNavigation} />
                         )
                     }} />
             </Container>
