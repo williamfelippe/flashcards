@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { KeyboardAvoidingView, TextInput } from 'react-native'
 import { BasicButton, Container } from '../components'
 import { colorRed, colorAccent, colorTextDefault } from '../constants/colors.js'
-import { addCardToDeck } from '../utils/session.js'
+import { addCardToDeck, getDeck } from '../utils/session.js'
+import { questions as questionsActions } from '../actions'
 import glamorous from 'glamorous-native'
 
 const NewQuestionTitle = glamorous.text({
@@ -36,14 +38,16 @@ class NewQuestion extends Component {
         }
     }
 
-    onPress() {
+    async submitQuestion() {
         const { navigation } = this.props
         const { deck } = navigation.state.params
+        const { title } = deck
+
+        await addCardToDeck(title, card)
+        const deckString = await getDeck(title)
         
-        addCardToDeck(deck.name, card)
-            .then(() => {
-                
-            })
+        const deckObject = JSON.parse(deckString)
+        addQuestion(deckObject.title, deckObject.questions)
     }
 
     render() {
@@ -56,7 +60,7 @@ class NewQuestion extends Component {
                 <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
                     <NewQuestionInputsContainer>
                         <NewQuestionTitle>
-                            {deck.name}
+                            {deck.title}
                         </NewQuestionTitle>
 
                         <NewQuestionInput
@@ -74,6 +78,7 @@ class NewQuestion extends Component {
                             autoCapitalize="sentences"
                             returnKeyType="go"
                             value={answer}
+                            onSubmitEditing={() => this.submitQuestion()}
                             underlineColorAndroid={colorAccent}
                             onChangeText={(answer) => this.setState({ answer })} />
                     </NewQuestionInputsContainer>
@@ -81,11 +86,15 @@ class NewQuestion extends Component {
                     <BasicButton
                         text="Submit"
                         backgroundColor={colorRed}
-                        onPress={() => onPress()} />
+                        onPress={() => this.submitQuestion()} />
                 </KeyboardAvoidingView>
             </Container>
         )
     }
 }
 
-export default NewQuestion
+const mapDispatchToProps = dispatch => ({
+    addQuestion: (deckTitle, card) => dispatch(questionsActions.addQuestion(deckTitle, card))
+})
+
+export default connect(null, mapDispatchToProps)(NewQuestion)

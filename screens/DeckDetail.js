@@ -37,7 +37,7 @@ class DeckDetail extends Component {
 				<View style={{ flex: 1 }}>
 					<DeckDetailView>
 						<DeckDetailTitle>
-							{deck.name.toUpperCase()}
+							{deck.title.toUpperCase()}
 						</DeckDetailTitle>
 
 						<DeckDetailInfo>

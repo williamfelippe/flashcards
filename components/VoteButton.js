@@ -21,9 +21,11 @@ const VoteTouchableText = glamorous.text({
     color: colorWhite
 })
 
-const VoteButton = ({ positive }) => {
+const VoteButton = ({ positive, onPress }) => {
     return (
-        <VoteTouchableHighlight positive={positive}>
+        <VoteTouchableHighlight 
+            positive={positive}
+            onPress={onPress}>
             <Feather
                 name={positive ? "check" : "x"}
                 color={colorWhite}
@@ -37,7 +39,8 @@ VoteButton.defaultProps = {
 }
 
 VoteButton.propTypes = {
-    positive: PropTypes.bool
+    positive: PropTypes.bool,
+    onPress: PropTypes.func.isRequired
 }
 
 export default VoteButton

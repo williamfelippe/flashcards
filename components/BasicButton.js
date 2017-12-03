@@ -1,15 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { 
+    colorWhite, 
+    colorPrimary, 
+    colorPrimaryDark 
+} from '../constants/colors.js'
 import glamorous from 'glamorous-native'
-import { colorWhite, colorPrimary, colorPrimaryDark } from '../constants/colors.js'
 
 const BasicButtonTouchableHighlight = glamorous.touchableHighlight(
     {
-        paddingLeft: 40,
-        paddingRight: 40,
-        paddingTop: 15,
-        paddingBottom: 15,
-        borderRadius: 5,
+        paddingLeft: 35,
+        paddingRight: 35,
+        paddingTop: 14,
+        paddingBottom: 14,
+        borderRadius: 7,
         marginBottom: 10
     },
     ({ backgroundColor }) => ({ backgroundColor })
@@ -52,7 +56,8 @@ BasicButton.defaultProps = {
     textColor: colorWhite,
     backgroundColor: colorPrimary,
     underlayColor: colorPrimaryDark,
-    fontSize: 18
+    fontSize: 14,
+    text: ''
 }
 
 BasicButton.propTypes = {

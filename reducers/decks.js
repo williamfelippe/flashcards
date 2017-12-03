@@ -20,11 +20,11 @@ const addDeck = (state, deck) => {
         ...state,
         byId: {
             ...state.byId,
-            [deck.name]: deck
+            [deck.title]: deck
         },
         allIds: [
             ...state.allIds,
-            deck.name
+            deck.title
         ]
     }
 }

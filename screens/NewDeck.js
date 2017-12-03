@@ -1,8 +1,13 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { AsyncStorage } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
-import { addDeck, getDeck, getDecks } from '../utils/session.js'
+import { decks as decksActions } from '../actions'
+import { 
+    addDeck as createDeck, 
+    getDeck 
+} from '../utils/session.js'
 import {
     colorBase,
     colorWhite,
@@ -45,18 +50,22 @@ class NewDeck extends Component {
     }
 
     async saveDeckInformations() {
-        const { screenProps } = this.props
-        const { rootNavigation } = screenProps
         const { deckTitle } = this.state
 
         if (deckTitle !== '') {
-            await addDeck(deckTitle)
+            await createDeck(deckTitle)
             const deck = await getDeck(deckTitle)
 
-            console.log('DECK', deck)
-
             if (deck) {
-                rootNavigation.navigate('DeckDetail', { deck })
+                const { screenProps, addDeck } = this.props
+                const { rootNavigation } = screenProps
+
+                const deckObject = JSON.parse(deck)
+                
+                console.log('DECK', deckObject)
+                addDeck(deckObject)
+                rootNavigation.navigate('DeckDetail', { deckObject })
+
                 return
             }
 
@@ -104,4 +113,9 @@ class NewDeck extends Component {
     }
 }
 
-export default NewDeck
+
+const mapDispatchToProps = dispatch => ({
+    addDeck: (deck) => dispatch(decksActions.addDeck(deck))
+})
+
+export default connect(null, mapDispatchToProps)(NewDeck)

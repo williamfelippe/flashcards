@@ -7,7 +7,7 @@ import {
     colorBase,
     colorBlack,
     colorTextDefault,
-    colorGreen
+    colorIce
 } from '../constants/colors.js'
 import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
@@ -50,14 +50,14 @@ const DeckCard = ({ deck, navigation }) => {
     return (
         <DeckCardTouchableHighlight 
             onPress={() => navigation.navigate('DeckDetail', { deck })} 
-            underlayColor={colorGreen}>
+            underlayColor={colorIce}>
             <DeckCardView>
                 <DeckCardTitle>
-                    {deck.name.toUpperCase()}
+                    {deck && deck.title.toUpperCase()}
                 </DeckCardTitle>
 
                 <DeckCardInfo>
-                    {getAmountOfQuestions(deck.questions)}
+                    {deck && getAmountOfQuestions(deck.questions)}
                 </DeckCardInfo>
             </DeckCardView>
         </DeckCardTouchableHighlight>

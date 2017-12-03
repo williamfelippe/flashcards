@@ -49,7 +49,7 @@ const RootNavigation = StackNavigator(
 		DeckDetail: {
 			screen: DeckDetail,
 			navigationOptions: ({ navigation }) => ({
-				title: `Deck ${navigation.state.params.deck.name}`,
+				title: `Deck ${navigation.state.params.deck.title}`,
 				...style
 			})
 		}
