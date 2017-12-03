@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
-import { addDeck, getDeck } from '../utils/session.js'
+import { addDeck, getDeck, getDecks } from '../utils/session.js'
 import {
     colorBase,
     colorWhite,
@@ -44,18 +45,15 @@ class NewDeck extends Component {
     }
 
     async saveDeckInformations() {
-        const { navigation, screenProps } = this.props
+        const { screenProps } = this.props
         const { rootNavigation } = screenProps
         const { deckTitle } = this.state
 
         if (deckTitle !== '') {
-            const deckId = await addDeck(deckTitle)
+            await addDeck(deckTitle)
+            const deck = await getDeck(deckTitle)
 
-            console.log('NEW DECK =)', deckId)
-
-            const deck = await getDeck(deckId)
-
-            console.log('NEW DECK =)', deck)
+            console.log('DECK', deck)
 
             if (deck) {
                 rootNavigation.navigate('DeckDetail', { deck })
@@ -67,6 +65,7 @@ class NewDeck extends Component {
         }
 
         //Fazer algo se o título é vazio
+        return
     }
 
     render() {
@@ -98,7 +97,7 @@ class NewDeck extends Component {
 
                     <BasicButton
                         text="Submit"
-                        onPress={() => this.saveDeckInformations()()} />
+                        onPress={() => this.saveDeckInformations()} />
                 </KeyboardAwareScrollView>
             </Container>
         )

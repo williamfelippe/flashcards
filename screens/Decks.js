@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FlatList } from 'react-native'
 import { Container, DeckCard } from '../components'
+import { getDecks } from '../utils/session.js'
 
 const data = [
     { 
@@ -14,6 +15,12 @@ const data = [
 ]
 
 class Decks extends Component {
+
+    async componentDidMount() {
+        const decks = await getDecks()
+        console.log('DECKS', decks)
+    }
+
     render() {
         const { rootNavigation } = this.props.screenProps
         

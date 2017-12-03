@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native'
-import uuid from 'uuid'
 
 /**
  * Retorna todos os baralhos com seus títulos, perguntas, e respostas
@@ -10,6 +9,8 @@ export const getDecks = () => {
 
 /**
  * Dado um único argumento id, ele retorna o baralho associado àquele id.
+ * @param {any} title 
+ * @returns 
  */
 export const getDeck = (title) => {
     return AsyncStorage.getItem(title)
@@ -20,19 +21,12 @@ export const getDeck = (title) => {
  * @param {String} title 
  */
 export const addDeck = (title) => {
-    const id = uuid()
-
     const deck = {
-        [id]: {
-            title,
-            questions: []
-        }
+        title,
+        questions: []
     }
 
-    AsyncStorage.setItem(title, JSON.stringify(deck))
-        .then(() => {
-            return new Promise((resolve, reject) => resolve(id))
-        })
+    return AsyncStorage.setItem(title, JSON.stringify(deck))
 }
 
 /**
@@ -43,9 +37,7 @@ export const addDeck = (title) => {
  */
 export const addCardToDeck = (title, card) => {
     const deck = {
-        [title]: {
-            questions: [card]
-        }
+        questions: [card]
     }
 
     return AsyncStorage.mergeItem(title, JSON.stringify(deck))
