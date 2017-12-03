@@ -1,4 +1,6 @@
 node_modules/
 .expo/
 npm-debug.*
-.vscode
+.vscode/
+yarn-error.log
+.idea/

@@ -10,10 +10,10 @@ const initialState = {
 
 const questions = (state = initialState, action) => {
     switch(action.type) {
-        case ADD_CARD:
+        case ADD_QUESTION:
             return addQuestion(state, action.deckTitle, action.card)
 
-        case UPDATE_CARD:
+        case UPDATE_QUESTION:
             return updateQuestion(state, action.deckTitle, action.card)
 
         default:
@@ -50,7 +50,7 @@ const updateQuestion = (state, deckTitle, card) => {
             [deckTitle]: {
                 ...state.byId[deckTitle],
                 [question]: {
-                    ...state.byId[deckTitle][question]
+                    ...state.byId[deckTitle][question],
                     card
                 }
             }
