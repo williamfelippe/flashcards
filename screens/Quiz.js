@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text } from 'react-native'
 import { BasicButton, Container, VoteButton } from '../components'
 import {
     colorTextDefault,
@@ -55,16 +55,29 @@ const QuizVoteButtonsWrapper = glamorous.view({
 
 const NoQuestions = () => {
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             No questions here =/
         </View>
     )
 }
 
-const QuestionResults = () => {
+const QuestionResults = ({ statuses }) => {
+    const calculateResult = () => {
+        //Calcula a porcentagem
+        const total = statuses.reduce((previous, current) => previous + current, 0)
+        const percentage = total / allIds.length * 100
+        return percentage
+    }
+
     return (
-        <View>
-            Resultados aqui =)
+        <View style={{ flex: 1 }}>
+            <Text>
+                Resultados aqui =)
+            </Text>
+
+            <Text>
+                {calculateResult()}
+            </Text>
         </View>
     )
 }
@@ -98,10 +111,6 @@ class Quiz extends Component {
     }
 
     showResults() {
-        console.log('Opa')
-        //Calcula a porcentagem
-
-
         //Mostra o componente de resultados
         this.setState({ showResults: true })
     }
@@ -119,7 +128,7 @@ class Quiz extends Component {
 
         const { index } = this.state
         const { question, answer } = byId[allIds[index]]
-        
+
         return (
             <Container>
                 <QuizView>
@@ -142,9 +151,12 @@ class Quiz extends Component {
                     </View>
 
                     <QuizVoteButtonsWrapper>
-                        <VoteButton onPress={() => this.vote(NEGATIVE)} />
+                        <VoteButton
+                            onPress={() => this.vote(NEGATIVE)} />
 
-                        <VoteButton positive onPress={() => this.vote(POSITIVE)} />
+                        <VoteButton
+                            positive
+                            onPress={() => this.vote(POSITIVE)} />
                     </QuizVoteButtonsWrapper>
                 </QuizView>
             </Container>
