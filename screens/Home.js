@@ -20,6 +20,7 @@ class Home extends Component {
 
     async recoverDecks() {
         const decks = await getDecks()
+        console.log('DECKS', decks)
 
         for (const deckTitle of decks) {
             const deck = await getDeck(deckTitle)

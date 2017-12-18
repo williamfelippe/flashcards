@@ -56,7 +56,9 @@ const QuizVoteButtonsWrapper = glamorous.view({
 const NoQuestions = () => {
     return (
         <View style={{ flex: 1 }}>
-            No questions here =/
+            <Text>
+                No questions here =/
+            </Text>
         </View>
     )
 }
@@ -72,7 +74,7 @@ const QuestionResults = ({ statuses }) => {
     return (
         <View style={{ flex: 1 }}>
             <Text>
-                Resultados aqui =)
+                Results here =)
             </Text>
 
             <Text>
@@ -95,9 +97,9 @@ class Quiz extends Component {
     }
 
     vote(status) {
-        this.setState(prevState => {
+        this.setState(prevState => ({
             statuses: prevState.statuses.concat(status)
-        }, () => this.nextQuestion())
+        }), () => this.nextQuestion())
     }
 
     nextQuestion() {
@@ -107,7 +109,7 @@ class Quiz extends Component {
             return
         }
 
-        this.setState(prevState => { index: prevState.index++ })
+        this.setState(prevState => ({ index: prevState.index++ }))
     }
 
     showResults() {
@@ -145,9 +147,9 @@ class Quiz extends Component {
                             text={`See ${(seeingAnswer) ? 'question' : 'answer'}`}
                             textColor={colorPrimaryDark}
                             backgroundColor={colorBase}
-                            onPress={() => this.setState(prevState => {
+                            onPress={() => this.setState(prevState => ({
                                 seeingAnswer: !prevState.seeingAnswer
-                            })} />
+                            }))} />
                     </View>
 
                     <QuizVoteButtonsWrapper>

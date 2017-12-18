@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { KeyboardAvoidingView, TextInput } from 'react-native'
+import { TextInput } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
 import { colorRed, colorAccent, colorTextDefault } from '../constants/colors.js'
 import { addCardToDeck, getDeck } from '../utils/session.js'
@@ -12,6 +13,7 @@ const NewQuestionTitle = glamorous.text({
     fontSize: 35,
     textAlign: 'center',
     color: colorTextDefault,
+    opacity: 0.6,
 
     marginBottom: 20
 })
@@ -39,25 +41,33 @@ class NewQuestion extends Component {
     }
 
     async submitQuestion() {
-        const { navigation } = this.props
+        const { navigation, addQuestion } = this.props
         const { deck } = navigation.state.params
         const { title } = deck
 
-        await addCardToDeck(title, card)
+        const { question, answer } = this.state
+        await addCardToDeck(title, { question, answer })
         const deckString = await getDeck(title)
         
         const deckObject = JSON.parse(deckString)
-        addQuestion(deckObject.title, deckObject.questions)
+        console.log('NEW QUESTION DECK', deckObject)
+        addQuestion(deckObject.title, { question, answer })
+
+        navigation.goBack()
     }
 
     render() {
         const { navigation } = this.props
-        const { deck } = navigation.state.params
         const { question, answer } = this.state
+        const { deck } = navigation.state.params
 
         return (
             <Container>
-                <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+                <KeyboardAwareScrollView
+                    resetScrollToCoords={{ x: 0, y: 0 }}
+                    style={{ flex: 1 }}
+                    contentContainerStyle={{ flex: 1 }}
+                    scrollEnabled={false}>
                     <NewQuestionInputsContainer>
                         <NewQuestionTitle>
                             {deck.title}
@@ -87,7 +97,7 @@ class NewQuestion extends Component {
                         text="Submit"
                         backgroundColor={colorRed}
                         onPress={() => this.submitQuestion()} />
-                </KeyboardAvoidingView>
+                </KeyboardAwareScrollView>
             </Container>
         )
     }

@@ -35,7 +35,7 @@ const RootNavigation = StackNavigator(
 		Quiz: { 
 			screen: Quiz,
 			navigationOptions: ({ navigation }) => ({
-				title: 'Quiz',
+				title: `Quiz ${navigation.state.params.deck.title}`,
 				...style
 			})
 		},

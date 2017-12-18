@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { AsyncStorage } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
 import { decks as decksActions } from '../actions'
@@ -61,10 +60,8 @@ class NewDeck extends Component {
                 const { rootNavigation } = screenProps
 
                 const deckObject = JSON.parse(deck)
-                
-                console.log('DECK', deckObject)
                 addDeck(deckObject)
-                rootNavigation.navigate('DeckDetail', { deckObject })
+                rootNavigation.navigate('DeckDetail', { deck: deckObject })
 
                 return
             }
