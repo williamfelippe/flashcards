@@ -1,5 +1,5 @@
 import { TabNavigator } from 'react-navigation'
-import { Decks, NewDeck } from '../screens'
+import { Decks, NewDeck } from '../scenes'
 import {
 	colorPrimary,
 	colorPrimaryDark,

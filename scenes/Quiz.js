@@ -14,6 +14,21 @@ import glamorous from 'glamorous-native'
 const NEGATIVE = 0
     , POSITIVE = 1
 
+const NoQuestionsView = glamorous.view({
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 30
+})
+
+const NoQuestionsText = glamorous.text({
+    textAlign: 'center',
+    fontSize: 40,
+    fontFamily: 'ubuntu-light',
+    color: colorTextDefault,
+    opacity: 0.6
+})
+
 const QuizView = glamorous.view({
     flex: 1,
     justifyContent: 'space-between',
@@ -55,11 +70,11 @@ const QuizVoteButtonsWrapper = glamorous.view({
 
 const NoQuestions = () => {
     return (
-        <View style={{ flex: 1 }}>
-            <Text>
-                No questions here =/
-            </Text>
-        </View>
+        <NoQuestionsView>
+            <NoQuestionsText>
+                No questions here
+            </NoQuestionsText>
+        </NoQuestionsView>
     )
 }
 

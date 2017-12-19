@@ -7,7 +7,7 @@ import {
 	Quiz,
 	NewQuestion,
 	DeckDetail
-} from '../screens'
+} from '../scenes'
 
 const style = {
 	headerTitleStyle: {
