@@ -78,11 +78,11 @@ const NoQuestions = () => {
     )
 }
 
-const QuestionResults = ({ statuses }) => {
+const QuestionResults = ({ statuses, questions }) => {
     const calculateResult = () => {
         //Calcula a porcentagem
         const total = statuses.reduce((previous, current) => previous + current, 0)
-        const percentage = total / allIds.length * 100
+        const percentage = total / questions.length * 100
         return percentage
     }
 
@@ -118,8 +118,12 @@ class Quiz extends Component {
     }
 
     nextQuestion() {
+        const { navigation } = this.props
+        const { deck } = navigation.state.params
+        const { questions } = deck
         const { statuses } = this.state
-        if (allIds.length === statuses.length) {
+
+        if (questions.length === statuses.length) {
             this.showResults()
             return
         }
@@ -133,24 +137,34 @@ class Quiz extends Component {
     }
 
     renderElements() {
-        const { allIds, byId } = this.props
+        const { navigation } = this.props
+        const { deck } = navigation.state.params
 
-        if (allIds.length <= 0) {
+
+        console.log('DECK?', deck)
+
+        const { questions } = deck
+
+        if (questions.length <= 0) {
             return <NoQuestions />
         }
         else if (this.state.showResults) {
             const { statuses } = this.state
-            return <QuestionResults statuses={statuses} />
+            return (
+                <QuestionResults
+                    statuses={statuses}
+                    questions={questions} />
+            )
         }
 
-        const { index } = this.state
-        const { question, answer } = byId[allIds[index]]
+        const { index, seeingAnswer } = this.state
+        const { question, answer } = questions[index]
 
         return (
             <Container>
                 <QuizView>
                     <QuizScore>
-                        {index + 1}/{allIds.length}
+                        {index + 1}/{questions.length}
                     </QuizScore>
 
                     <View>
@@ -185,13 +199,4 @@ class Quiz extends Component {
     }
 }
 
-const mapStateToProps = ({ questions }) => {
-    const { byId, allIds } = questions
-
-    return {
-        byId,
-        allIds
-    }
-}
-
-export default connect(mapStateToProps)(Quiz)
+export default Quiz
