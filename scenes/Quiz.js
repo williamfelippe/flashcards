@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text } from 'react-native'
 import { BasicButton, Container, VoteButton } from '../components'
+import { clearLocalNotification, setLocalNotification } from '../utils/notification'
 import {
     colorTextDefault,
     colorAccent,
@@ -113,7 +114,7 @@ class Quiz extends Component {
 
     vote(status) {
         this.setState(prevState => ({
-            statuses: prevState.statuses.concat(status)
+            statuses: [...prevState.statuses, status]
         }), () => this.nextQuestion())
     }
 
@@ -133,13 +134,15 @@ class Quiz extends Component {
 
     showResults() {
         //Mostra o componente de resultados
-        this.setState({ showResults: true })
+        this.setState({ showResults: true }, () => {
+            clearLocalNotification()
+                .then(setLocalNotification)
+        })
     }
 
     renderElements() {
         const { navigation } = this.props
         const { deck } = navigation.state.params
-
 
         console.log('DECK?', deck)
 
@@ -195,7 +198,9 @@ class Quiz extends Component {
     }
 
     render() {
-        return this.renderElements()
+        return (
+            this.renderElements()
+        )
     }
 }
 
