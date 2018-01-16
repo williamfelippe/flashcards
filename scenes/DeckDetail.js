@@ -11,21 +11,29 @@ const DeckDetailView = glamorous.view({
 	alignItems: 'center'
 })
 
-const DeckDetailTitle = glamorous.text({
-	fontFamily: 'ubuntu-bold',
-	fontSize: 40,
-	fontWeight: '900',
-	marginBottom: 10,
-	color: colorTextDefault,
-	textAlign: 'center'
-})
+const DeckDetailTitle = glamorous.text(
+	{
+		fontSize: 40,
+		marginBottom: 10,
+		textAlign: 'center'
+	},
+	(props, theme) => ({
+		color: theme.colors.colorTextDefault,
+		fontFamily: theme.fonts.primaryFontBold
+	})
+)
 
-const DeckDetailInfo = glamorous.text({
-	fontSize: 20,
-	color: colorTextDefault,
-	opacity: 0.7,
-	textAlign: 'center'
-})
+const DeckDetailInfo = glamorous.text(
+	{
+		fontSize: 20,
+		color: colorTextDefault,
+		opacity: 0.7,
+		textAlign: 'center'
+	},
+	(props, theme) => ({
+		color: theme.colors.colorTextDefault
+	})
+)
 
 class DeckDetail extends Component {
 	render() {
@@ -42,7 +50,7 @@ class DeckDetail extends Component {
 
 						<DeckDetailInfo>
 							{getAmountOfQuestions(deck.questions)}
-                		</DeckDetailInfo>
+						</DeckDetailInfo>
 					</DeckDetailView>
 
 					<View>

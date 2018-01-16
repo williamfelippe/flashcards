@@ -3,20 +3,24 @@ import { connect } from 'react-redux'
 import { TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
-import { colorRed, colorAccent, colorTextDefault } from '../constants/colors.js'
+import { colorRed, colorAccent } from '../constants/colors.js'
 import { addCardToDeck, getDeck } from '../utils/session.js'
 import { questions as questionsActions } from '../actions'
 import glamorous from 'glamorous-native'
 
-const NewQuestionTitle = glamorous.text({
-    fontFamily: 'ubuntu-bold',
-    fontSize: 35,
-    textAlign: 'center',
-    color: colorTextDefault,
-    opacity: 0.6,
+const NewQuestionTitle = glamorous.text(
+    {
+        fontSize: 35,
+        textAlign: 'center',
+        opacity: 0.6,
 
-    marginBottom: 20
-})
+        marginBottom: 20
+    },
+    (props, theme) => ({
+        fontFamily: theme.fonts.primaryFontBold,
+        color: theme.colors.colorTextDefault
+    })
+)
 
 const NewQuestionInputsContainer = glamorous.view({
     flexGrow: 1,
@@ -48,7 +52,7 @@ class NewQuestion extends Component {
         const { question, answer } = this.state
         await addCardToDeck(title, { question, answer })
         const deckString = await getDeck(title)
-        
+
         const deckObject = JSON.parse(deckString)
         console.log('NEW QUESTION DECK', deckObject)
         addQuestion(deckObject.title, { question, answer })

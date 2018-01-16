@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
 import { decks as decksActions } from '../actions'
-import { 
-    addDeck as createDeck, 
-    getDeck 
+import {
+    addDeck as createDeck,
+    getDeck
 } from '../utils/session.js'
 import {
     colorBase,
@@ -16,22 +16,30 @@ import {
 } from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
-const NewDeckView = glamorous.view({
-    backgroundColor: colorBase,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexGrow: 1,
-    padding: 16
-})
+const NewDeckView = glamorous.view(
+    {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexGrow: 1,
+        padding: 16
+    },
+    (props, theme) => ({
+        backgroundColor: theme.colors.colorBase
+    })
+)
 
-const NewDeckTitle = glamorous.text({
-    fontFamily: 'ubuntu-bold',
-    fontSize: 35,
-    textAlign: 'center',
-    color: colorBlack,
+const NewDeckTitle = glamorous.text(
+    {
+        fontSize: 35,
+        textAlign: 'center',
 
-    marginBottom: 40
-})
+        marginBottom: 40
+    },
+    (props, theme) => ({
+        color: theme.colors.colorBlack,
+        fontFamily: theme.fonts.primaryFontBold
+    })
+)
 
 const NewDeckInput = glamorous.textInput({
     padding: 10,

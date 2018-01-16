@@ -18,15 +18,19 @@ const NoDecksView = glamorous.view({
     paddingRight: 40
 })
 
-const NoDecksText = glamorous.text({
-    fontFamily: 'ubuntu-light',
-    fontSize: 40,
-    textAlign: 'center',
-    color: colorTextDefault,
+const NoDecksText = glamorous.text(
+    {
+        fontSize: 40,
+        textAlign: 'center',
 
-    opacity: 0.6,
-    marginBottom: 30
-})
+        opacity: 0.6,
+        marginBottom: 30
+    },
+	(props, theme) => ({
+        color: theme.colors.colorTextDefault,
+        fontFamily: theme.fonts.primaryFontLight
+	})
+)
 
 const NoDecks = ({ navigation }) => {
     return (
@@ -36,8 +40,8 @@ const NoDecks = ({ navigation }) => {
                     No decks at the moment
                 </NoDecksText>
 
-                <BasicButton 
-                    text="Create your first" 
+                <BasicButton
+                    text="Create your first"
                     onPress={() => navigation.navigate('NewDeck')} />
             </NoDecksView>
         </Container>
