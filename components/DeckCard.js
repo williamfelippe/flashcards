@@ -4,31 +4,30 @@ import { Feather } from '@expo/vector-icons'
 import { NavigationActions } from 'react-navigation'
 import { TouchableHighlight } from 'react-native'
 import {
-    colorWhite,
-    colorBase,
-    colorBlack,
-    colorTextDefault,
     colorIce,
     colorRed,
-    colorGreen,
-    colorAccent
+    colorGreen
 } from '../constants/colors.js'
 import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
 
-const DeckCardTouchableHighlight = glamorous.touchableHighlight({
-    backgroundColor: colorWhite,
-    borderRadius: 5,
-    marginBottom: 10,
-    elevation: 3,
-    shadowColor: colorBlack,
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    shadowOffset: {
-        height: 1,
-        width: 0.3
-    }
-})
+const DeckCardTouchableHighlight = glamorous.touchableHighlight(
+    {
+        borderRadius: 5,
+        marginBottom: 10,
+        elevation: 3,
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        shadowOffset: {
+            height: 1,
+            width: 0.3
+        }
+    },
+    (props, theme) => ({
+        backgroundColor: theme.colors.colorWhite,
+        shadowColor: theme.colors.colorBlack
+    })
+)
 
 const DeckCardView = glamorous.view({
     minHeight: 150
@@ -48,22 +47,30 @@ const DeckCardContentView = glamorous.view({
     flexGrow: 1
 })
 
-const DeckCardTitle = glamorous.text({
-    fontFamily: 'ubuntu-bold',
-    fontSize: 25,
-    fontWeight: '900',
-    marginBottom: 10,
-    color: colorTextDefault,
-    textAlign: 'center',
-    alignSelf: 'center',
-    opacity: 0.7
-})
+const DeckCardTitle = glamorous.text(
+    {
+        fontFamily: 'ubuntu-bold',
+        fontSize: 25,
+        fontWeight: '900',
+        marginBottom: 10,
+        textAlign: 'center',
+        alignSelf: 'center',
+        opacity: 0.7
+    },
+    (props, theme) => ({
+        color: theme.colors.colorTextDefault
+    })
+)
 
-const DeckCardInfo = glamorous.text({
-    fontSize: 14,
-    color: colorTextDefault,
-    opacity: 0.6
-})
+const DeckCardInfo = glamorous.text(
+    {
+        fontSize: 14,
+        opacity: 0.6
+    },
+    (props, theme) => ({
+        color: theme.colors.colorTextDefault
+    })
+)
 
 const DeckCard = ({ deck, navigation }) => {
 

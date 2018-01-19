@@ -3,17 +3,8 @@ import { connect } from 'react-redux'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
 import { decks as decksActions } from '../actions'
-import {
-    addDeck as createDeck,
-    getDeck
-} from '../utils/session.js'
-import {
-    colorBase,
-    colorWhite,
-    colorPrimary,
-    colorBlack,
-    colorAccent
-} from '../constants/colors.js'
+import { createDeck } from '../utils/session.js'
+import { colorAccent } from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
 const NewDeckView = glamorous.view(
@@ -60,21 +51,14 @@ class NewDeck extends Component {
         const { deckTitle } = this.state
 
         if (deckTitle !== '') {
-            await createDeck(deckTitle)
-            const deck = await getDeck(deckTitle)
+            const deck = { title: deckTitle, questions: [] }
+            await createDeck(deck)
 
-            if (deck) {
-                const { screenProps, addDeck } = this.props
-                const { rootNavigation } = screenProps
+            const { addDeck, screenProps } = this.props
+            const { rootNavigation } = screenProps
+            addDeck(deck)
 
-                const deckObject = JSON.parse(deck)
-                addDeck(deckObject)
-                rootNavigation.navigate('DeckDetail', { deck: deckObject })
-
-                return
-            }
-
-            //Fazer algo se não recuperou o deck
+            rootNavigation.navigate('DeckDetail', deck)
             return
         }
 
@@ -117,7 +101,6 @@ class NewDeck extends Component {
         )
     }
 }
-
 
 const mapDispatchToProps = dispatch => ({
     addDeck: (deck) => dispatch(decksActions.addDeck(deck))

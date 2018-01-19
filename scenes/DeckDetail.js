@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container, BasicButton } from '../components'
 import { Text, View } from 'react-native'
-import { colorTextDefault, colorGreen, colorRed } from '../constants/colors.js'
+import { colorGreen, colorRed } from '../constants/colors.js'
 import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
 
@@ -26,7 +26,6 @@ const DeckDetailTitle = glamorous.text(
 const DeckDetailInfo = glamorous.text(
 	{
 		fontSize: 20,
-		color: colorTextDefault,
 		opacity: 0.7,
 		textAlign: 'center'
 	},

@@ -5,7 +5,10 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { BasicButton, Container } from '../components'
 import { colorRed, colorAccent } from '../constants/colors.js'
 import { addCardToDeck, getDeck } from '../utils/session.js'
-import { questions as questionsActions } from '../actions'
+import { 
+    decks as decksActions,
+    questions as questionsActions 
+} from '../actions'
 import glamorous from 'glamorous-native'
 
 const NewQuestionTitle = glamorous.text(
@@ -50,11 +53,7 @@ class NewQuestion extends Component {
         const { title } = deck
 
         const { question, answer } = this.state
-        await addCardToDeck(title, { question, answer })
-        const deckString = await getDeck(title)
-
-        const deckObject = JSON.parse(deckString)
-        console.log('NEW QUESTION DECK', deckObject)
+        await addCardToDeck({ question, answer })
         addQuestion(deckObject.title, { question, answer })
 
         navigation.goBack()

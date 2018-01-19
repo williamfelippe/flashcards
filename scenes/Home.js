@@ -15,21 +15,15 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.setState({ loading: true }, () => this.recoverDecks())
+        this.setState({ loading: true }, () => {
+            this.recoverDecks()
+        })
     }
 
     async recoverDecks() {
         const decks = await getDecks()
-        console.log('DECKS', decks)
-
-        for (const deckTitle of decks) {
-            const deck = await getDeck(deckTitle)
-            if (deck) {
-                const { addDeck } = this.props
-                addDeck(JSON.parse(deck))
-            }
-        }
-
+        setDecks(JSON.parse(decks))
+        
         this.setState({ loading: false })
     }
 
@@ -49,7 +43,7 @@ class Home extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    addDeck: (deck) => dispatch(decksActions.addDeck(deck))
+    setDecks: (decks) => dispatch(decksActions.setDecks(decks))
 })
 
 export default connect(null, mapDispatchToProps)(Home)

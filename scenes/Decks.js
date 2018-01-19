@@ -51,7 +51,7 @@ const NoDecks = ({ navigation }) => {
 class Decks extends Component {
 
     render() {
-        const { allIds, byId, navigation } = this.props
+        const { allIds, decksById, navigation } = this.props
         const { rootNavigation } = this.props.screenProps
 
         return (
@@ -63,7 +63,7 @@ class Decks extends Component {
                     renderItem={({ item }) => {
                         return (
                             <DeckCard
-                                deck={byId[item]}
+                                deck={decksById[item]}
                                 navigation={rootNavigation} />
                         )
                     }} />
@@ -76,7 +76,7 @@ const mapStateToProps = ({ decks }) => {
     const { byId, allIds } = decks
 
     return {
-        byId,
+        decksById: byId,
         allIds
     }
 }

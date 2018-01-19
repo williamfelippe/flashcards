@@ -3,13 +3,7 @@ import { connect } from 'react-redux'
 import { View, Text } from 'react-native'
 import { BasicButton, Container, VoteButton } from '../components'
 import { clearLocalNotification, setLocalNotification } from '../utils/notification'
-import {
-    colorTextDefault,
-    colorAccent,
-    colorBlack,
-    colorBase,
-    colorPrimaryDark
-} from '../constants/colors.js'
+import { colorBase, colorPrimaryDark } from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
 const NEGATIVE = 0
@@ -22,13 +16,17 @@ const NoQuestionsView = glamorous.view({
     padding: 30
 })
 
-const NoQuestionsText = glamorous.text({
-    textAlign: 'center',
-    fontSize: 40,
-    fontFamily: 'ubuntu-light',
-    color: colorTextDefault,
-    opacity: 0.6
-})
+const NoQuestionsText = glamorous.text(
+    {
+        textAlign: 'center',
+        fontSize: 40,
+        opacity: 0.6
+    },
+    (props, theme) => ({
+        fontFamily: theme.fonts.primaryFontLight,
+        color: theme.colors.colorTextDefault
+    })
+)
 
 const QuizView = glamorous.view({
     flex: 1,
@@ -36,31 +34,43 @@ const QuizView = glamorous.view({
     alignItems: 'center'
 })
 
-const QuizScore = glamorous.text({
-    textAlign: 'left',
-    alignSelf: 'stretch',
-    fontSize: 16,
-    fontFamily: 'ubuntu-bold',
-    marginTop: 10
-})
+const QuizScore = glamorous.text(
+    {
+        textAlign: 'left',
+        alignSelf: 'stretch',
+        fontSize: 16,
+        marginTop: 10
+    },
+    (props, theme) => ({
+        fontFamily: theme.fonts.primaryFontBold
+    })
+)
 
-const QuizQuestion = glamorous.text({
-    fontSize: 40,
-    fontFamily: 'ubuntu-light',
-    textAlign: 'center',
-    marginBottom: 10
-})
+const QuizQuestion = glamorous.text(
+    {
+        fontSize: 40,
+        textAlign: 'center',
+        marginBottom: 10
+    },
+    (props, theme) => ({
+        fontFamily: theme.fonts.primaryFontLight
+    })
+)
 
-const QuizChangeCardButtonText = glamorous.text({
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '700',
-    color: colorTextDefault,
-    textDecorationLine: 'underline',
-    textDecorationColor: colorTextDefault,
-    padding: 20,
-    marginBottom: 20
-})
+const QuizChangeCardButtonText = glamorous.text(
+    {
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: '700',
+        textDecorationLine: 'underline',
+        padding: 20,
+        marginBottom: 20
+    },
+    (props, theme) => ({
+        color: theme.colors.colorTextDefault,
+        textDecorationColor: theme.colors.colorTextDefault
+    })
+)
 
 const QuizVoteButtonsWrapper = glamorous.view({
     flexDirection: 'row',

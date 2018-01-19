@@ -12,18 +12,22 @@ const VoteTouchableHighlight = glamorous.touchableHighlight(
         justifyContent: 'center',
         alignItems: 'center'
     },
-    ({ positive }) => ({
-        backgroundColor: positive ? colorGreen : colorRed
+    ({ positive }, theme) => ({
+        backgroundColor: positive
+            ? theme.colors.colorGreen
+            : theme.colors.colorRed
     })
 )
 
-const VoteTouchableText = glamorous.text({
-    color: colorWhite
-})
+const VoteTouchableText = glamorous.text(
+    {}, (props, theme) => ({
+        color: theme.colors.colorWhite
+    })
+)
 
 const VoteButton = ({ positive, onPress }) => {
     return (
-        <VoteTouchableHighlight 
+        <VoteTouchableHighlight
             positive={positive}
             onPress={onPress}>
             <Feather
