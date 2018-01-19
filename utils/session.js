@@ -9,8 +9,8 @@ export const getDecks = () => {
 
 /**
  * Dado um único argumento id, ele retorna o baralho associado àquele id.
- * @param {any} title 
- * @returns 
+ * @param {String} title 
+ * @returns {Promise}
  */
 export const getDeck = (title) => {
     return AsyncStorage.getItem(title)
