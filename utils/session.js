@@ -9,16 +9,17 @@ const getDecks = () => {
     return AsyncStorage.getItem(DECKS_KEY)
 }
 
-async const createDeck = (deck) => {
-    const decks = await getDecks()
+const createDeck = (deck) => {
+    getDecks()
+        .then(decks => {
+            if (decks) {
+                console.log('DECKS', JSON.parse(decks))
+                AsyncStorage.setItem(DECKS_KEY, JSON.stringify([...JSON.parse(decks), deck]))
+                return
+            }
 
-    return AsyncStorage.setItem(
-        DECKS_KEY,
-        JSON.stringify({
-            ...JSON.parse(decks),
-            deck
+            AsyncStorage.setItem(DECKS_KEY, JSON.stringify([deck]))
         })
-    )
 }
 
 export {

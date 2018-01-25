@@ -20,11 +20,21 @@ class Home extends Component {
         })
     }
 
-    async recoverDecks() {
-        const decks = await getDecks()
-        setDecks(JSON.parse(decks))
-        
-        this.setState({ loading: false })
+    recoverDecks() {
+        console.log('JESUS')
+
+        const { setDecks } = this.props
+        getDecks()
+            .then(decks => {
+                this.setState({ loading: false }, () => {
+                    setDecks((decks) ? JSON.parse(decks) : [])
+                })
+            })
+            .catch(error => {
+                this.setState({ loading: false }, () => {
+                    setDecks([])
+                })
+            })
     }
 
     render() {

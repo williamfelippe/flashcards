@@ -16,7 +16,8 @@ import {
 	colorIce,
 	colorGreen,
 	colorRed,
-	colorBlack
+	colorBlack,
+	colorGray
 } from './constants/colors.js'
 import store from './store.js'
 
@@ -31,7 +32,8 @@ const theme = {
 		colorIce,
 		colorGreen,
 		colorRed,
-		colorBlack
+		colorBlack,
+		colorGray
 	},
 	fonts: {
 		primaryFont: 'ubuntu',

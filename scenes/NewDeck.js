@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Text, Modal } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, Container } from '../components'
 import { decks as decksActions } from '../actions'
@@ -32,18 +33,40 @@ const NewDeckTitle = glamorous.text(
     })
 )
 
-const NewDeckInput = glamorous.textInput({
-    padding: 10,
-    alignSelf: 'stretch',
+const NewDeckInput = glamorous.textInput(
+    {
+        padding: 10,
+        alignSelf: 'stretch',
+        borderWidth: 2,
+        fontSize: 20,
+        borderRadius: 5
+    },
+    (props, theme) => ({
+        borderColor: theme.colors.colorGray,
+        backgroundColor: theme.colors.colorWhite
+    })
+)
 
-    fontSize: 20
-})
+const NewDeckModalContainer = glamorous.view(
+    {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'grey'
+    }
+)
+
+const NewDeckInnerContainer = glamorous.view(
+    {
+        alignItems: 'center'
+    }
+)
 
 class NewDeck extends Component {
     constructor() {
         super()
         this.state = {
-            deckTitle: ''
+            deckTitle: '',
+            isAlertModalOpen: false
         }
     }
 
@@ -62,12 +85,20 @@ class NewDeck extends Component {
             return
         }
 
-        //Fazer algo se o título é vazio
+        this.openAlertModal()
         return
     }
 
+    openAlertModal() {
+        this.setState({ isAlertModalOpen: true })
+    }
+
+    closeAlertModal() {
+        this.setState({ isAlertModalOpen: false })
+    }
+
     render() {
-        const { deckTitle } = this.state
+        const { deckTitle, isAlertModalOpen } = this.state
 
         return (
             <Container>
@@ -86,9 +117,8 @@ class NewDeck extends Component {
                             autoCorrect
                             autoCapitalize="sentences"
                             returnKeyType="go"
+                            underlineColorAndroid="transparent"
                             value={deckTitle}
-                            selectionColor={colorAccent}
-                            underlineColorAndroid={colorAccent}
                             onSubmitEditing={() => this.saveDeckInformations()}
                             onChangeText={(deckTitle) => this.setState({ deckTitle })} />
                     </NewDeckView>
@@ -96,6 +126,22 @@ class NewDeck extends Component {
                     <BasicButton
                         text="Submit"
                         onPress={() => this.saveDeckInformations()} />
+                        
+                    <Modal
+                        visible={isAlertModalOpen}
+                        animationType={'slide'}
+                        onRequestClose={() => this.closeAlertModal()}>
+                        <NewDeckModalContainer>
+                            <NewDeckInnerContainer>
+                                <Text>
+                                    Title can't be empty
+                                </Text>
+                                <BasicButton
+                                    onPress={() => this.closeAlertModal()}
+                                    text="Ok" />
+                            </NewDeckInnerContainer>
+                        </NewDeckModalContainer>
+                    </Modal>
                 </KeyboardAwareScrollView>
             </Container>
         )
