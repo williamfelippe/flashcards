@@ -1,6 +1,7 @@
 import { 
     SET_DECKS,
-    ADD_DECK 
+    ADD_DECK,
+    UPDATE_DECK 
 } from '../constants/actionsTypes.js'
 
 const initialState = {
@@ -15,6 +16,9 @@ const decks = (state = initialState, action) => {
 
         case ADD_DECK:
             return addDeck(state, action.deck)
+
+        case UPDATE_DECK:
+            return updateDeck(state, action.deck)
 
         default:
             return state
@@ -52,6 +56,16 @@ const addDeck = (state, deck) => {
             ...state.allIds,
             deck.title
         ]
+    }
+}
+
+const updateDeck = (state, deck) => {
+    return {
+        ...state,
+        byId: {
+            ...state.byId,
+            [deck.title]: deck
+        }
     }
 }
 

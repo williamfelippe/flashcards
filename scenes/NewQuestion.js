@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { TextInput } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { BasicButton, Container } from '../components'
+import { BasicButton, BasicInput, Container } from '../components'
 import { colorRed, colorAccent } from '../constants/colors.js'
-import { addCardToDeck, getDeck } from '../utils/session.js'
-import { 
-    decks as decksActions,
-    questions as questionsActions 
-} from '../actions'
+import { addCardToDeck } from '../utils/session.js'
+import { decks as decksActions } from '../actions'
 import glamorous from 'glamorous-native'
 
 const NewQuestionTitle = glamorous.text(
@@ -48,13 +44,20 @@ class NewQuestion extends Component {
     }
 
     async submitQuestion() {
-        const { navigation, addQuestion } = this.props
+        const { navigation, updateDeck } = this.props
         const { deck } = navigation.state.params
         const { title } = deck
 
         const { question, answer } = this.state
-        await addCardToDeck({ question, answer })
-        addQuestion(deckObject.title, { question, answer })
+        const card = { question, answer }
+
+        console.log('Pergunta', card)
+        await addCardToDeck(title, card)
+
+        updateDeck({
+            ...deck,
+            questions: deck.questions.concat(card),
+        })
 
         navigation.goBack()
     }
@@ -76,7 +79,7 @@ class NewQuestion extends Component {
                             {deck.title}
                         </NewQuestionTitle>
 
-                        <NewQuestionInput
+                        <BasicInput
                             placeholder="Question"
                             autoCorrect
                             autoCapitalize="sentences"
@@ -85,7 +88,7 @@ class NewQuestion extends Component {
                             underlineColorAndroid={colorAccent}
                             onChangeText={(question) => this.setState({ question })} />
 
-                        <NewQuestionInput
+                        <BasicInput
                             placeholder="Answer"
                             autoCorrect
                             autoCapitalize="sentences"
@@ -107,7 +110,7 @@ class NewQuestion extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    addQuestion: (deckTitle, card) => dispatch(questionsActions.addQuestion(deckTitle, card))
+    updateDeck: (deck) => dispatch(decksActions.updateDeck(deck))
 })
 
 export default connect(null, mapDispatchToProps)(NewQuestion)

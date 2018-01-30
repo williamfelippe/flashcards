@@ -89,7 +89,12 @@ const NoQuestions = () => {
     )
 }
 
-const QuestionResults = ({ statuses, questions }) => {
+const QuestionResults = ({ 
+    navigation,
+    statuses, 
+    questions, 
+    restartQuiz 
+}) => {
     const calculateResult = () => {
         //Calcula a porcentagem
         const total = statuses.reduce((previous, current) => previous + current, 0)
@@ -106,6 +111,16 @@ const QuestionResults = ({ statuses, questions }) => {
             <Text>
                 {calculateResult()}
             </Text>
+
+            <BasicButton
+                text="Restart Quiz"
+                backgroundColor={colorPrimary}
+                onPress={restartQuiz} />
+
+            <BasicButton
+                text="Back to Deck"
+                backgroundColor={colorRed}
+                onPress={() => navigation.goBack()} />
         </View>
     )
 }
@@ -139,7 +154,9 @@ class Quiz extends Component {
             return
         }
 
-        this.setState(prevState => ({ index: prevState.index++ }))
+        this.setState(prevState => ({
+            index: prevState.index++
+        }))
     }
 
     showResults() {
@@ -150,11 +167,18 @@ class Quiz extends Component {
         })
     }
 
+    restartQuiz() {
+        this.setState({
+            statuses: [],
+            index: 0,
+            seeingAnswer: false,
+            showResults: false
+        })
+    }
+
     renderElements() {
         const { navigation } = this.props
         const { deck } = navigation.state.params
-
-        console.log('DECK?', deck)
 
         const { questions } = deck
 
@@ -166,7 +190,9 @@ class Quiz extends Component {
             return (
                 <QuestionResults
                     statuses={statuses}
-                    questions={questions} />
+                    questions={questions}
+                    navigation={navigation}
+                    restartQuiz={() => this.restartQuiz()} />
             )
         }
 

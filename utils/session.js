@@ -9,20 +9,53 @@ const getDecks = () => {
     return AsyncStorage.getItem(DECKS_KEY)
 }
 
-const createDeck = (deck) => {
+const addDeck = (deck) => {
     getDecks()
+        .then(JSON.parse)
         .then(decks => {
             if (decks) {
-                console.log('DECKS', JSON.parse(decks))
-                AsyncStorage.setItem(DECKS_KEY, JSON.stringify([...JSON.parse(decks), deck]))
+                AsyncStorage.setItem(DECKS_KEY, JSON.stringify({
+                    ...decks,
+                    [deck.title]: deck
+                }))
+
                 return
             }
 
-            AsyncStorage.setItem(DECKS_KEY, JSON.stringify([deck]))
+            AsyncStorage.setItem(DECKS_KEY, JSON.stringify({
+                [deck.title]: deck
+            }))
+        })
+}
+
+const addCardToDeck = (deckTitle, card) => {
+    getDecks()
+        .then(JSON.parse)
+        .then(decks => {
+            const deck = decks[deckTitle]
+
+            console.log(JSON.stringify({
+                ...decks,
+                [deckTitle]: {
+                    ...deck,
+                    questions: deck.questions.concat(card)
+                }
+            }))
+
+            if(deck) {
+                AsyncStorage.setItem(DECKS_KEY, JSON.stringify({
+                    ...decks,
+                    [deckTitle]: {
+                        ...deck,
+                        questions: deck.questions.concat(card)
+                    }
+                }))
+            }
         })
 }
 
 export {
     getDecks,
-    createDeck
+    addDeck,
+    addCardToDeck
 }

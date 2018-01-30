@@ -21,13 +21,13 @@ class Home extends Component {
     }
 
     recoverDecks() {
-        console.log('JESUS')
-
         const { setDecks } = this.props
         getDecks()
+            .then(JSON.parse)
             .then(decks => {
+                console.log('RECOVER DECKS', decks)
                 this.setState({ loading: false }, () => {
-                    setDecks((decks) ? JSON.parse(decks) : [])
+                    setDecks((decks) ? Object.values(decks) : [])
                 })
             })
             .catch(error => {

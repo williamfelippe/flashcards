@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Text, Modal } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { BasicButton, Container } from '../components'
+import { BasicButton, BasicInput, Container } from '../components'
 import { decks as decksActions } from '../actions'
-import { createDeck } from '../utils/session.js'
+import { addDeck as createDeck } from '../utils/session.js'
 import { colorAccent } from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
@@ -81,7 +81,7 @@ class NewDeck extends Component {
             const { rootNavigation } = screenProps
             addDeck(deck)
 
-            rootNavigation.navigate('DeckDetail', deck)
+            rootNavigation.navigate('DeckDetail', { deck })
             return
         }
 
@@ -112,12 +112,11 @@ class NewDeck extends Component {
                             What is the title of your new deck?
                         </NewDeckTitle>
 
-                        <NewDeckInput
+                        <BasicInput
                             placeholder="Deck title"
                             autoCorrect
                             autoCapitalize="sentences"
                             returnKeyType="go"
-                            underlineColorAndroid="transparent"
                             value={deckTitle}
                             onSubmitEditing={() => this.saveDeckInformations()}
                             onChangeText={(deckTitle) => this.setState({ deckTitle })} />
@@ -126,7 +125,7 @@ class NewDeck extends Component {
                     <BasicButton
                         text="Submit"
                         onPress={() => this.saveDeckInformations()} />
-                        
+
                     <Modal
                         visible={isAlertModalOpen}
                         animationType={'slide'}
