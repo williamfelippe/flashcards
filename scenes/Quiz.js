@@ -146,7 +146,7 @@ const QuestionResults = ({
         <Container>
             <QuizView>
                 <QuestionResultTitle>
-                    Results here =)
+                    Correct answers:
                 </QuestionResultTitle>
 
                 <QuestionResultScore>
