@@ -13,6 +13,12 @@ import {
 } from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
+const QuestionsView = glamorous.view({
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+})
+
 const QuestionsResultTitle = glamorous.text(
     {
         fontSize: 20,
@@ -59,7 +65,7 @@ const QuestionsResults = ({
 
     return (
         <Container>
-            <QuizView>
+            <QuestionsView>
                 <QuestionsResultTitle>
                     {correctAnswersLabel}:
                 </QuestionsResultTitle>
@@ -81,7 +87,7 @@ const QuestionsResults = ({
                         underlayColor={colorDarkGreen}
                         onPress={() => navigation.goBack()} />
                 </QuestionsResultButtonsWrapper>
-            </QuizView>
+            </QuestionsView>
         </Container>
     )
 }

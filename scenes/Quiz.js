@@ -143,7 +143,7 @@ class Quiz extends Component {
         else if (this.state.showResults) {
             const { statuses } = this.state
             return (
-                <QuestionResults
+                <QuestionsResults
                     statuses={statuses}
                     questions={questions}
                     navigation={navigation}
