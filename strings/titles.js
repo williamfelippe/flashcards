@@ -1,0 +1,6 @@
+export const decksTitle = 'Decks'
+export const newDeckTitle = 'NewDeck'
+export const homeTitle = 'Home'
+export const quizTitle = 'Quiz'
+export const newQuestionTitle = 'NewQuestion'
+export const deckTitle = 'Deck'
