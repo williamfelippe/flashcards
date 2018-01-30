@@ -139,7 +139,7 @@ const QuestionResults = ({
         //Calcula a porcentagem
         const total = statuses.reduce((previous, current) => previous + current, 0)
         const percentage = total / questions.length * 100
-        return percentage
+        return Math.round(percentage) 
     }
 
     return (
