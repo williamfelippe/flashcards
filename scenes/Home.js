@@ -21,7 +21,10 @@ class Home extends Component {
     }
 
     recoverDecks() {
-        const { setDecks } = this.props
+        const { resetDecks, setDecks } = this.props
+
+        resetDecks()
+
         getDecks()
             .then(JSON.parse)
             .then(decks => {
@@ -53,6 +56,7 @@ class Home extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
+    resetDecks: () => dispatch(decksActions.resetDecks()),
     setDecks: (decks) => dispatch(decksActions.setDecks(decks))
 })
 

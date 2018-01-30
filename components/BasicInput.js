@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { colorTransparent } from '../constants/colors'
 import glamorous from 'glamorous-native'
 
 const Input = glamorous.textInput(
@@ -20,7 +21,7 @@ const BasicInput = (props) => {
     return (
         <Input
             {...props}
-            underlineColorAndroid="transparent" />
+            underlineColorAndroid={colorTransparent} />
     )
 }
 

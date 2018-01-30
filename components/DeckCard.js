@@ -6,7 +6,8 @@ import { TouchableHighlight } from 'react-native'
 import {
     colorIce,
     colorRed,
-    colorGreen
+    colorGreen,
+    colorGray
 } from '../constants/colors.js'
 import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
@@ -76,24 +77,36 @@ const DeckCard = ({ deck, navigation }) => {
 
     const renderCircles = () => {
         const { questions } = deck
+        const questionLength = questions.length
 
-        if (questions.length > 0) {
-            return deck.questions.map((question, key) => {
-                return (
-                    <Feather
-                        key={key}
-                        name="circle"
-                        color={colorRed}
-                        style={{ marginRight: 5 }}
-                        size={15} />
-                )
-            })
+        if (questionLength > 0) {
+            if (questionLength <= 7) {
+                return deck.questions.map((question, key) => {
+                    return (
+                        <Feather
+                            key={key}
+                            name="circle"
+                            color={colorRed}
+                            style={{ marginRight: 5 }}
+                            size={15} />
+                    )
+                })
+            }
+
+            return (
+                <Feather
+                    key={key}
+                    name="plus-circle"
+                    color={colorGreen}
+                    style={{ marginRight: 5 }}
+                    size={15} />
+            )
         }
 
         return (
             <Feather
-                name="circle"
-                color={colorGreen}
+                name="minus-circle"
+                color={colorGray}
                 style={{ marginRight: 5 }}
                 size={15} />
         )
@@ -101,7 +114,7 @@ const DeckCard = ({ deck, navigation }) => {
 
     return (
         <DeckCardTouchableHighlight
-            onPress={() => navigation.navigate('DeckDetail', { deck })}
+            onPress={() => navigation.navigate('DeckDetail', { deckTitle: deck.title })}
             underlayColor={colorIce}>
             <DeckCardView>
                 <DeckCardIconView>

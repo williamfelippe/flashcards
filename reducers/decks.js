@@ -1,4 +1,5 @@
 import { 
+    RESET_DECKS,
     SET_DECKS,
     ADD_DECK,
     UPDATE_DECK 
@@ -11,6 +12,9 @@ const initialState = {
 
 const decks = (state = initialState, action) => {
     switch(action.type) {
+        case RESET_DECKS: 
+            return initialState
+
         case SET_DECKS:
             return setDecks(state, action.decks)
 

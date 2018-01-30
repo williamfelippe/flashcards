@@ -1,7 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Feather } from '@expo/vector-icons'
-import { colorWhite, colorGreen, colorRed } from '../constants/colors.js'
+import { 
+    colorWhite, 
+    colorDarkGreen, 
+    colorDarkRed 
+} from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
 const VoteTouchableHighlight = glamorous.touchableHighlight(
@@ -29,7 +33,8 @@ const VoteButton = ({ positive, onPress }) => {
     return (
         <VoteTouchableHighlight
             positive={positive}
-            onPress={onPress}>
+            onPress={onPress}
+            underlayColor={positive ? colorDarkGreen : colorDarkRed}>
             <Feather
                 name={positive ? "check" : "x"}
                 color={colorWhite}

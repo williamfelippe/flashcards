@@ -3,7 +3,16 @@ import { connect } from 'react-redux'
 import { View, Text } from 'react-native'
 import { BasicButton, Container, VoteButton } from '../components'
 import { clearLocalNotification, setLocalNotification } from '../utils/notification'
-import { colorBase, colorPrimaryDark } from '../constants/colors.js'
+import {
+    colorBase,
+    colorPrimary,
+    colorPrimaryDark,
+    colorTransparent,
+    colorRed,
+    colorDarkRed,
+    colorGreen,
+    colorDarkGreen
+} from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
 const NEGATIVE = 0
@@ -79,6 +88,37 @@ const QuizVoteButtonsWrapper = glamorous.view({
     marginBottom: 20
 })
 
+const QuestionResultTitle = glamorous.text(
+    {
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 10,
+        marginTop: 30
+    },
+    (props, theme) => ({
+        fontFamily: theme.fonts.primaryFontLight,
+        color: theme.colors.colorTextDefault
+    })
+)
+
+const QuestionResultScore = glamorous.text(
+    {
+        fontSize: 100,
+        textAlign: 'center',
+        marginBottom: 10
+    },
+    (props, theme) => ({
+        fontFamily: theme.fonts.primaryFontBold,
+        color: theme.colors.colorPrimary
+    })
+)
+
+const QuestionResultButtonsWrapper = glamorous.view({
+    flexDirection: 'column',
+    alignSelf: 'center',
+    marginBottom: 20
+})
+
 const NoQuestions = () => {
     return (
         <NoQuestionsView>
@@ -89,11 +129,11 @@ const NoQuestions = () => {
     )
 }
 
-const QuestionResults = ({ 
+const QuestionResults = ({
     navigation,
-    statuses, 
-    questions, 
-    restartQuiz 
+    statuses,
+    questions,
+    restartQuiz
 }) => {
     const calculateResult = () => {
         //Calcula a porcentagem
@@ -103,25 +143,31 @@ const QuestionResults = ({
     }
 
     return (
-        <View style={{ flex: 1 }}>
-            <Text>
-                Results here =)
-            </Text>
+        <Container>
+            <QuizView>
+                <QuestionResultTitle>
+                    Results here =)
+                </QuestionResultTitle>
 
-            <Text>
-                {calculateResult()}
-            </Text>
+                <QuestionResultScore>
+                    {calculateResult()}
+                </QuestionResultScore>
 
-            <BasicButton
-                text="Restart Quiz"
-                backgroundColor={colorPrimary}
-                onPress={restartQuiz} />
+                <QuestionResultButtonsWrapper>
+                    <BasicButton
+                        text="Restart Quiz"
+                        backgroundColor={colorRed}
+                        underlayColor={colorDarkRed}
+                        onPress={restartQuiz} />
 
-            <BasicButton
-                text="Back to Deck"
-                backgroundColor={colorRed}
-                onPress={() => navigation.goBack()} />
-        </View>
+                    <BasicButton
+                        text="Back to Deck"
+                        backgroundColor={colorGreen}
+                        underlayColor={colorDarkGreen}
+                        onPress={() => navigation.goBack()} />
+                </QuestionResultButtonsWrapper>
+            </QuizView>
+        </Container>
     )
 }
 
@@ -144,8 +190,7 @@ class Quiz extends Component {
     }
 
     nextQuestion() {
-        const { navigation } = this.props
-        const { deck } = navigation.state.params
+        const { deck } = this.props
         const { questions } = deck
         const { statuses } = this.state
 
@@ -155,7 +200,7 @@ class Quiz extends Component {
         }
 
         this.setState(prevState => ({
-            index: prevState.index++
+            index: prevState.index + 1
         }))
     }
 
@@ -177,9 +222,7 @@ class Quiz extends Component {
     }
 
     renderElements() {
-        const { navigation } = this.props
-        const { deck } = navigation.state.params
-
+        const { deck, navigation } = this.props
         const { questions } = deck
 
         if (questions.length <= 0) {
@@ -214,7 +257,8 @@ class Quiz extends Component {
                         <BasicButton
                             text={`See ${(seeingAnswer) ? 'question' : 'answer'}`}
                             textColor={colorPrimaryDark}
-                            backgroundColor={colorBase}
+                            backgroundColor={colorTransparent}
+                            underlayColor={colorTransparent}
                             onPress={() => this.setState(prevState => ({
                                 seeingAnswer: !prevState.seeingAnswer
                             }))} />
@@ -240,4 +284,13 @@ class Quiz extends Component {
     }
 }
 
-export default Quiz
+const mapStateToProps = ({ decks }, { navigation }) => {
+    const { byId } = decks
+    const { deckTitle } = navigation.state.params
+
+    return {
+        deck: byId[deckTitle]
+    }
+}
+
+export default connect(mapStateToProps)(Quiz)

@@ -15,7 +15,9 @@ import {
 	colorWhite,
 	colorIce,
 	colorGreen,
+	colorDarkGreen,
 	colorRed,
+	colorDarkRed,
 	colorBlack,
 	colorGray
 } from './constants/colors.js'
@@ -31,7 +33,9 @@ const theme = {
 		colorWhite,
 		colorIce,
 		colorGreen,
+		colorDarkGreen,
 		colorRed,
+		colorDarkRed,
 		colorBlack,
 		colorGray
 	},

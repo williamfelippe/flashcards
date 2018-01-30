@@ -44,16 +44,13 @@ class NewQuestion extends Component {
     }
 
     async submitQuestion() {
-        const { navigation, updateDeck } = this.props
-        const { deck } = navigation.state.params
+        const { deck, updateDeck, navigation } = this.props
         const { title } = deck
 
         const { question, answer } = this.state
         const card = { question, answer }
 
-        console.log('Pergunta', card)
         await addCardToDeck(title, card)
-
         updateDeck({
             ...deck,
             questions: deck.questions.concat(card),
@@ -63,9 +60,8 @@ class NewQuestion extends Component {
     }
 
     render() {
-        const { navigation } = this.props
+        const { deck } = this.props
         const { question, answer } = this.state
-        const { deck } = navigation.state.params
 
         return (
             <Container>
@@ -109,8 +105,17 @@ class NewQuestion extends Component {
     }
 }
 
+const mapStateToProps = ({ decks }, { navigation }) => {
+    const { byId } = decks
+    const { deckTitle } = navigation.state.params
+
+    return {
+        deck: byId[deckTitle]
+    }
+}
+
 const mapDispatchToProps = dispatch => ({
     updateDeck: (deck) => dispatch(decksActions.updateDeck(deck))
 })
 
-export default connect(null, mapDispatchToProps)(NewQuestion)
+export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion)

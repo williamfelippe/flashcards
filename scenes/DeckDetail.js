@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Container, BasicButton } from '../components'
 import { Text, View } from 'react-native'
 import { colorGreen, colorRed } from '../constants/colors.js'
@@ -36,8 +37,7 @@ const DeckDetailInfo = glamorous.text(
 
 class DeckDetail extends Component {
 	render() {
-		const { navigation } = this.props
-		const { deck } = navigation.state.params
+		const { deck, navigation } = this.props
 
 		return (
 			<Container>
@@ -56,12 +56,12 @@ class DeckDetail extends Component {
 						<BasicButton
 							text="Add Card"
 							backgroundColor={colorRed}
-							onPress={() => navigation.navigate('NewQuestion', { deck })} />
+							onPress={() => navigation.navigate('NewQuestion', { deckTitle: deck.title })} />
 
 						<BasicButton
 							text="Start Quiz"
 							backgroundColor={colorGreen}
-							onPress={() => navigation.navigate('Quiz', { deck })} />
+							onPress={() => navigation.navigate('Quiz', { deckTitle: deck.title })} />
 					</View>
 				</View>
 			</Container>
@@ -69,4 +69,13 @@ class DeckDetail extends Component {
 	}
 }
 
-export default DeckDetail
+const mapStateToProps = ({ decks }, { navigation }) => {
+	const { byId } = decks
+	const { deckTitle } = navigation.state.params
+
+    return {
+        deck: byId[deckTitle]
+    }
+}
+
+export default connect(mapStateToProps)(DeckDetail)

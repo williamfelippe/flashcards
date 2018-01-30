@@ -35,21 +35,21 @@ const RootNavigation = StackNavigator(
 		Quiz: { 
 			screen: Quiz,
 			navigationOptions: ({ navigation }) => ({
-				title: `Quiz ${navigation.state.params.deck.title}`,
+				title: `Quiz ${navigation.state.params.deckTitle}`,
 				...style
 			})
 		},
 		NewQuestion: { 
 			screen: NewQuestion,
 			navigationOptions: ({ navigation }) => ({
-				title: 'NewQuestion',
+				title: 'NewQuestion: ',
 				...style
 			})
 		},
 		DeckDetail: {
 			screen: DeckDetail,
 			navigationOptions: ({ navigation }) => ({
-				title: `Deck ${navigation.state.params.deck.title}`,
+				title: `Deck ${navigation.state.params.deckTitle}`,
 				...style
 			})
 		}
