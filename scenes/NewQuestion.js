@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Text, Modal } from 'react-native'
+import { submitAction } from '../strings/actions'
+import { cantBeEmptyError } from '../strings/errors'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { BasicButton, BasicModal, BasicInput, Container } from '../components'
-import { colorRed, colorAccent } from '../constants/colors.js'
-import { addCardToDeck } from '../utils/session.js'
 import { decks as decksActions } from '../actions'
+import { addCardToDeck } from '../utils/session.js'
+import { Text, Modal } from 'react-native'
+import { colorRed, colorAccent } from '../constants/colors.js'
+import { answerLabel, questionLabel } from '../strings/labels'
+import { BasicButton, BasicModal, BasicInput, Container } from '../components'
 import glamorous from 'glamorous-native'
 
 const NewQuestionTitle = glamorous.text(
@@ -58,7 +61,9 @@ class NewQuestion extends Component {
         }
 
         this.setState({
-            errorMessage: `${question === '' ? 'Question' : 'Answer'} can't be empty`,
+            errorMessage: cantBeEmptyError(question === '' 
+                ? questionLabel 
+                : answerLabel),
             isAlertModalOpen: true
         })
     }
@@ -92,7 +97,7 @@ class NewQuestion extends Component {
                         </NewQuestionTitle>
 
                         <BasicInput
-                            placeholder="Question"
+                            placeholder={questionLabel}
                             autoCorrect
                             autoCapitalize="sentences"
                             returnKeyType="next"
@@ -101,7 +106,7 @@ class NewQuestion extends Component {
                             onChangeText={(question) => this.setState({ question })} />
 
                         <BasicInput
-                            placeholder="Answer"
+                            placeholder={answerLabel}
                             autoCorrect
                             autoCapitalize="sentences"
                             returnKeyType="go"
@@ -112,7 +117,7 @@ class NewQuestion extends Component {
                     </NewQuestionInputsContainer>
 
                     <BasicButton
-                        text="Submit"
+                        text={submitAction}
                         backgroundColor={colorRed}
                         onPress={() => this.submitQuestion()} />
 

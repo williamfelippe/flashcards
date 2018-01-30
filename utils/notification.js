@@ -1,12 +1,14 @@
 import { AsyncStorage } from 'react-native'
 import { Notifications, Permissions } from 'expo'
+import { notificationTitle } from '../strings/titles'
+import { notificationBodyLabel } from '../strings/labels'
 
 const NOTIFICATION_KEY = 'flashcards@wfelippesilva:notifications'
 
 const createNotification = () => {
     return {
-        title: 'Flashcards reminds you',
-        body: "Do not forget to study today!",
+        title: notificationTitle,
+        body: notificationBodyLabel,
         ios: {
             sound: true
         },

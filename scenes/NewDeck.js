@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { submitAction } from '../strings/actions'
+import { titleOfDeckLabel } from '../strings/labels'
+import { titleCantBeEmptyError } from '../strings/errors'
+import { whatsTheNameOfYourNewDeckTitle } from '../strings/titles'
 import { Text, Modal } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { BasicButton, BasicInput, BasicModal, Container } from '../components'
@@ -95,11 +99,11 @@ class NewDeck extends Component {
                     scrollEnabled={false}>
                     <NewDeckView>
                         <NewDeckTitle>
-                            What is the title of your new deck?
+                            {whatsTheNameOfYourNewDeckTitle}
                         </NewDeckTitle>
 
                         <BasicInput
-                            placeholder="Deck title"
+                            placeholder={titleOfDeckLabel}
                             autoCorrect
                             autoCapitalize="sentences"
                             returnKeyType="go"
@@ -109,11 +113,11 @@ class NewDeck extends Component {
                     </NewDeckView>
 
                     <BasicButton
-                        text="Submit"
+                        text={submitAction}
                         onPress={() => this.saveDeckInformations()} />
 
                     <BasicModal
-                        message="Title can't be empty"
+                        message={titleCantBeEmptyError}
                         isAlertModalOpen={isAlertModalOpen}
                         closeAlertModal={() => this.closeAlertModal()} />
                 </KeyboardAwareScrollView>

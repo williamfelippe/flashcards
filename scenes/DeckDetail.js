@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Container, BasicButton } from '../components'
 import { Text, View } from 'react-native'
 import { colorGreen, colorRed } from '../constants/colors.js'
+import { addCardAction, startQuizAction } from '../strings/actions'
 import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
 
@@ -56,14 +57,18 @@ class DeckDetail extends Component {
 
 						<View>
 							<BasicButton
-								text="Add Card"
+								text={addCardAction}
 								backgroundColor={colorRed}
-								onPress={() => navigation.navigate('NewQuestion', { deckTitle: deck.title })} />
+								onPress={() => navigation.navigate('NewQuestion', {
+									deckTitle: deck.title
+								})} />
 
 							<BasicButton
-								text="Start Quiz"
+								text={startQuizAction}
 								backgroundColor={colorGreen}
-								onPress={() => navigation.navigate('Quiz', { deckTitle: deck.title })} />
+								onPress={() => navigation.navigate('Quiz', {
+									deckTitle: deck.title
+								})} />
 						</View>
 					</View>
 				}

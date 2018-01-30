@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View } from 'react-native'
+import { seeAction } from '../strings/actions'
 import { 
     clearLocalNotification, 
     setLocalNotification 
 } from '../utils/notification'
+import {
+    questionLabel,
+    answerLabel
+} from '../strings/labels'
 import {
     BasicButton,
     Container,
@@ -162,7 +167,11 @@ class Quiz extends Component {
                         </QuizQuestion>
 
                         <BasicButton
-                            text={`See ${(seeingAnswer) ? 'question' : 'answer'}`}
+                            text={
+                                `${seeAction} ${(seeingAnswer) 
+                                    ? questionLabel.toLowerCase()
+                                    : answerLabel.toLowerCase()}`
+                            }
                             textColor={colorPrimaryDark}
                             backgroundColor={colorTransparent}
                             underlayColor={colorTransparent}

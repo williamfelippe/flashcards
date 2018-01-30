@@ -10,7 +10,7 @@ const withLoader = (WrappedComponent) => {
             }
         }
 
-        setIsLoading(loading, callback) {
+        setIsLoading(loading, callback = () => {}) {
             this.setState({ loading }, () => callback())
         }
 
@@ -24,7 +24,8 @@ const withLoader = (WrappedComponent) => {
                         {...this.props}
                         isLoading={loading}
                         setIsLoading={
-                            (loading, callback) => this.setIsLoading(loading, callback)
+                            (loading, callback) => 
+                            this.setIsLoading(loading, callback)
                         } />
             )
         }

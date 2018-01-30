@@ -1,11 +1,16 @@
+import {
+    noCardsAtTheMomentLabel,
+    amountOfCardsLabel
+} from '../strings/labels'
+
 const getAmountOfQuestions = (questions) => {
     const amount = questions.length
 
     if(amount > 0) {
-        return amount === 1 ? `${amount} card` : `${amount} cards`
+        return amountOfCardsLabel(amount)
     }
 
-    return 'No cards at the moment'
+    return noCardsAtTheMomentLabel
 }
 
 export default getAmountOfQuestions
