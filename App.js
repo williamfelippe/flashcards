@@ -40,10 +40,10 @@ const theme = {
 		colorGray
 	},
 	fonts: {
-		primaryFont: 'ubuntu',
-		primaryFontBold: 'ubuntu-bold',
-		primaryFontLight: 'ubuntu-light',
-		primaryFontMedium: 'ubuntu-medium'
+		primaryFont: 'montserrat',
+		primaryFontBold: 'montserrat-bold',
+		primaryFontLight: 'montserrat-light',
+		primaryFontMedium: 'montserrat-medium'
 	},
 	dimens: {
 		sidePadding: 10,
@@ -63,10 +63,10 @@ class App extends Component {
 
 	async componentDidMount() {
 		await Font.loadAsync({
-			'ubuntu-bold': require('./assets/fonts/Ubuntu-Bold.ttf'),
-			'ubuntu-light': require('./assets/fonts/Ubuntu-Light.ttf'),
-			'ubuntu-medium': require('./assets/fonts/Ubuntu-Medium.ttf'),
-			'ubuntu': require('./assets/fonts/Ubuntu-Regular.ttf')
+			'montserrat-bold': require('./assets/fonts/Montserrat-Bold.ttf'),
+			'montserrat-light': require('./assets/fonts/Montserrat-Light.ttf'),
+			'montserrat-medium': require('./assets/fonts/Montserrat-Medium.ttf'),
+			'montserrat': require('./assets/fonts/Montserrat-Regular.ttf')
 		})
 
 		this.setState({ fontLoaded: true }, () => {

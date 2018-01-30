@@ -59,7 +59,6 @@ const DeckCardContentView = glamorous.view({
 
 const DeckCardTitle = glamorous.text(
     {
-        fontFamily: 'ubuntu-bold',
         fontSize: 25,
         fontWeight: '900',
         marginBottom: 10,
@@ -68,7 +67,8 @@ const DeckCardTitle = glamorous.text(
         opacity: 0.7
     },
     (props, theme) => ({
-        color: theme.colors.colorTextDefault
+        color: theme.colors.colorTextDefault,
+        fontFamily: theme.fonts.primaryFontBold
     })
 )
 

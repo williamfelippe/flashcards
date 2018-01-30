@@ -52,7 +52,7 @@ const QuizScore = glamorous.text(
 
 const QuizQuestion = glamorous.text(
     {
-        fontSize: 40,
+        fontSize: 30,
         textAlign: 'center',
         marginBottom: 10
     },

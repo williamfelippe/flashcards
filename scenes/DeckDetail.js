@@ -15,7 +15,7 @@ const DeckDetailView = glamorous.view({
 
 const DeckDetailTitle = glamorous.text(
 	{
-		fontSize: 40,
+		fontSize: 30,
 		marginBottom: 10,
 		textAlign: 'center'
 	},

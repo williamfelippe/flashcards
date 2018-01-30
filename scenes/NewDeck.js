@@ -25,7 +25,7 @@ const NewDeckView = glamorous.view(
 
 const NewDeckTitle = glamorous.text(
     {
-        fontSize: 35,
+        fontSize: 30,
         textAlign: 'center',
 
         marginBottom: 40

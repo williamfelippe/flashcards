@@ -7,14 +7,14 @@ import { submitAction, okAction } from '../strings/actions'
 import { decks as decksActions } from '../actions'
 import { addCardToDeck } from '../utils/session.js'
 import { Text, Alert } from 'react-native'
-import { colorRed, colorAccent } from '../constants/colors.js'
+import { colorRed, colorAccent, colorDarkRed } from '../constants/colors.js'
 import { answerLabel, questionLabel } from '../strings/labels'
 import { BasicButton, BasicInput, Container } from '../components'
 import glamorous from 'glamorous-native'
 
 const NewQuestionTitle = glamorous.text(
     {
-        fontSize: 35,
+        fontSize: 30,
         textAlign: 'center',
         opacity: 0.6,
 
@@ -112,6 +112,7 @@ class NewQuestion extends Component {
                     <BasicButton
                         text={submitAction}
                         backgroundColor={colorRed}
+                        underlayColor={colorDarkRed}
                         onPress={() => this.submitQuestion()} />
                 </KeyboardAwareScrollView>
             </Container>
