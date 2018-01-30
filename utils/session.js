@@ -34,14 +34,6 @@ const addCardToDeck = (deckTitle, card) => {
         .then(decks => {
             const deck = decks[deckTitle]
 
-            console.log(JSON.stringify({
-                ...decks,
-                [deckTitle]: {
-                    ...deck,
-                    questions: deck.questions.concat(card)
-                }
-            }))
-
             if(deck) {
                 AsyncStorage.setItem(DECKS_KEY, JSON.stringify({
                     ...decks,

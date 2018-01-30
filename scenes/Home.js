@@ -28,7 +28,6 @@ class Home extends Component {
         getDecks()
             .then(JSON.parse)
             .then(decks => {
-                console.log('RECOVER DECKS', decks)
                 this.setState({ loading: false }, () => {
                     setDecks((decks) ? Object.values(decks) : [])
                 })
