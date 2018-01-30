@@ -150,7 +150,7 @@ const QuestionResults = ({
                 </QuestionResultTitle>
 
                 <QuestionResultScore>
-                    {calculateResult()}
+                    {calculateResult()}%
                 </QuestionResultScore>
 
                 <QuestionResultButtonsWrapper>
