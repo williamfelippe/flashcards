@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Feather } from '@expo/vector-icons'
 import { NavigationActions } from 'react-navigation'
-import { TouchableHighlight } from 'react-native'
+import {
+    TouchableHighlight,
+    Animated
+} from 'react-native'
 import {
     colorIce,
     colorRed,
@@ -30,9 +33,12 @@ const DeckCardTouchableHighlight = glamorous.touchableHighlight(
     })
 )
 
-const DeckCardView = glamorous.view({
-    minHeight: 150
-})
+const DeckCardView = glamorous(Animated.View)(
+    {
+        minHeight: 150
+    }
+)
+DeckCardView.propsAreStyleOverrides = true
 
 const DeckCardIconView = glamorous.view({
     alignItems: 'flex-end',
@@ -73,9 +79,28 @@ const DeckCardInfo = glamorous.text(
     })
 )
 
-const DeckCard = ({ deck, navigation }) => {
+class DeckCard extends Component {
 
-    const renderCircles = () => {
+    constructor(props) {
+        super()
+        this.state = {
+            opacity: new Animated.Value(1)
+        }
+    }
+
+    handleDeckDetail() {
+        const { opacity } = this.state
+
+        Animated
+            .timing(opacity, { duration: 1200, toValue: 0 })
+            .start(() => {
+                const { navigation, deck } = this.props
+                navigation.navigate('DeckDetail', { deckTitle: deck.title })
+            })
+    }
+
+    renderCircles() {
+        const { deck } = this.props
         const { questions } = deck
         const questionLength = questions.length
 
@@ -112,27 +137,32 @@ const DeckCard = ({ deck, navigation }) => {
         )
     }
 
-    return (
-        <DeckCardTouchableHighlight
-            onPress={() => navigation.navigate('DeckDetail', { deckTitle: deck.title })}
-            underlayColor={colorIce}>
-            <DeckCardView>
-                <DeckCardIconView>
-                    {renderCircles()}
-                </DeckCardIconView>
+    render() {
+        const { deck, navigation } = this.props
+        const { opacity } = this.state
 
-                <DeckCardContentView>
-                    <DeckCardTitle>
-                        {deck && deck.title.toUpperCase()}
-                    </DeckCardTitle>
+        return (
+            <DeckCardTouchableHighlight
+                onPress={() => this.handleDeckDetail()}
+                underlayColor={colorIce}>
+                <DeckCardView style={{ opacity }}>
+                    <DeckCardIconView>
+                        {this.renderCircles()}
+                    </DeckCardIconView>
 
-                    <DeckCardInfo>
-                        {deck && getAmountOfQuestions(deck.questions)}
-                    </DeckCardInfo>
-                </DeckCardContentView>
-            </DeckCardView>
-        </DeckCardTouchableHighlight>
-    )
+                    <DeckCardContentView>
+                        <DeckCardTitle>
+                            {deck && deck.title.toUpperCase()}
+                        </DeckCardTitle>
+
+                        <DeckCardInfo>
+                            {deck && getAmountOfQuestions(deck.questions)}
+                        </DeckCardInfo>
+                    </DeckCardContentView>
+                </DeckCardView>
+            </DeckCardTouchableHighlight >
+        )
+    }
 }
 
 DeckCard.propTypes = {
