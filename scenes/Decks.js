@@ -20,6 +20,7 @@ class Decks extends Component {
                 : <DecksList
                     keyExtractor={(item, index) => index}
                     data={allIds}
+                    contentContainerStyle={{ paddingBottom: 10 }}
                     renderItem={({ item }) => {
                         return (
                             <DeckCard

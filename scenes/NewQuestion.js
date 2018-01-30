@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { submitAction } from '../strings/actions'
 import { cantBeEmptyError } from '../strings/errors'
+import { alertTitle } from '../strings/titles'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { submitAction, okAction } from '../strings/actions'
 import { decks as decksActions } from '../actions'
 import { addCardToDeck } from '../utils/session.js'
-import { Text, Modal } from 'react-native'
+import { Text, Alert } from 'react-native'
 import { colorRed, colorAccent } from '../constants/colors.js'
 import { answerLabel, questionLabel } from '../strings/labels'
-import { BasicButton, BasicModal, BasicInput, Container } from '../components'
+import { BasicButton, BasicInput, Container } from '../components'
 import glamorous from 'glamorous-native'
 
 const NewQuestionTitle = glamorous.text(
@@ -36,9 +37,7 @@ class NewQuestion extends Component {
         super()
         this.state = {
             question: '',
-            answer: '',
-            errorMessage: '',
-            isAlertModalOpen: false
+            answer: ''
         }
     }
 
@@ -60,29 +59,23 @@ class NewQuestion extends Component {
             return
         }
 
-        this.setState({
-            errorMessage: cantBeEmptyError(question === '' 
-                ? questionLabel 
-                : answerLabel),
-            isAlertModalOpen: true
-        })
+        this.openAlertModal()
     }
 
-    closeAlertModal() {
-        this.setState({ 
-            isAlertModalOpen: false, 
-            errorMessage: '' 
-        })
+    openAlertModal() {
+        const { question } = this.state
+        
+        Alert.alert(
+            alertTitle,
+            cantBeEmptyError(question === '' ? questionLabel : answerLabel),
+            [{ text: okAction }],
+            { cancelable: false }
+        )
     }
 
     render() {
         const { deck } = this.props
-        const {
-            question,
-            answer,
-            errorMessage,
-            isAlertModalOpen
-        } = this.state
+        const { question, answer } = this.state
 
         return (
             <Container>
@@ -120,11 +113,6 @@ class NewQuestion extends Component {
                         text={submitAction}
                         backgroundColor={colorRed}
                         onPress={() => this.submitQuestion()} />
-
-                    <BasicModal
-                        message={errorMessage}
-                        isAlertModalOpen={isAlertModalOpen}
-                        closeAlertModal={() => this.closeAlertModal()} />
                 </KeyboardAwareScrollView>
             </Container>
         )

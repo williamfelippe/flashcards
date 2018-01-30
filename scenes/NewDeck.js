@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { submitAction } from '../strings/actions'
+import { submitAction, okAction } from '../strings/actions'
 import { titleOfDeckLabel } from '../strings/labels'
 import { titleCantBeEmptyError } from '../strings/errors'
-import { whatsTheNameOfYourNewDeckTitle } from '../strings/titles'
-import { Text, Modal } from 'react-native'
+import { whatsTheNameOfYourNewDeckTitle, alertTitle } from '../strings/titles'
+import { Text, Alert } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { BasicButton, BasicInput, BasicModal, Container } from '../components'
+import { BasicButton, BasicInput, Container } from '../components'
 import { decks as decksActions } from '../actions'
 import { addDeck as createDeck } from '../utils/session.js'
-import { colorAccent } from '../constants/colors.js'
 import glamorous from 'glamorous-native'
 
 const NewDeckView = glamorous.view(
@@ -55,8 +54,7 @@ class NewDeck extends Component {
     constructor() {
         super()
         this.state = {
-            deckTitle: '',
-            isAlertModalOpen: false
+            deckTitle: ''
         }
     }
 
@@ -80,15 +78,16 @@ class NewDeck extends Component {
     }
 
     openAlertModal() {
-        this.setState({ isAlertModalOpen: true })
-    }
-
-    closeAlertModal() {
-        this.setState({ isAlertModalOpen: false })
+        Alert.alert(
+            alertTitle,
+            titleCantBeEmptyError,
+            [{ text: okAction }],
+            { cancelable: false }
+        )
     }
 
     render() {
-        const { deckTitle, isAlertModalOpen } = this.state
+        const { deckTitle } = this.state
 
         return (
             <Container>
@@ -115,11 +114,6 @@ class NewDeck extends Component {
                     <BasicButton
                         text={submitAction}
                         onPress={() => this.saveDeckInformations()} />
-
-                    <BasicModal
-                        message={titleCantBeEmptyError}
-                        isAlertModalOpen={isAlertModalOpen}
-                        closeAlertModal={() => this.closeAlertModal()} />
                 </KeyboardAwareScrollView>
             </Container>
         )

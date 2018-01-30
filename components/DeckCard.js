@@ -4,7 +4,8 @@ import { Feather } from '@expo/vector-icons'
 import { NavigationActions } from 'react-navigation'
 import {
     TouchableHighlight,
-    Animated
+    Animated,
+    Easing
 } from 'react-native'
 import {
     colorIce,
@@ -36,9 +37,11 @@ const DeckCardTouchableHighlight = glamorous.touchableHighlight(
 const DeckCardView = glamorous(Animated.View)(
     {
         minHeight: 150
-    }
+    },
+    (props) => ({
+        opacity: props.style.opacity
+    })
 )
-DeckCardView.propsAreStyleOverrides = true
 
 const DeckCardIconView = glamorous.view({
     alignItems: 'flex-end',
@@ -91,18 +94,29 @@ class DeckCard extends Component {
     handleDeckDetail() {
         const { opacity } = this.state
 
-        Animated
-            .timing(opacity, { duration: 1200, toValue: 0 })
-            .start(() => this.changeScreen())
+        Animated.sequence([
+            Animated.timing(
+                opacity,
+                {
+                    duration: 300,
+                    toValue: 0,
+                    easing: Easing.linear,
+                    useNativeDriver: true
+                }),
+            Animated.timing(
+                opacity,
+                {
+                    duration: 300,
+                    toValue: 1,
+                    easing: Easing.linear,
+                    useNativeDriver: true
+                })
+        ]).start(() => this.changeScreen())
     }
 
     changeScreen() {
-        this.setState({
-            opacity: new Animated.Value(1)
-        }, () => {
-            const { navigation, deck } = this.props
-            navigation.navigate('DeckDetail', { deckTitle: deck.title })
-        })
+        const { navigation, deck } = this.props
+        navigation.navigate('DeckDetail', { deckTitle: deck.title })
     }
 
     renderCircles() {
