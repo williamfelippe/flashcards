@@ -3,6 +3,12 @@ import { StatusBar, View } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import { colorWhite, colorPrimary } from '../constants/colors.js'
 import {
+	homeTitle,
+	quizTitle,
+	newQuestionTitle,
+	deckTitle
+} from '../strings/titles'
+import {
 	Home,
 	Quiz,
 	NewQuestion,
@@ -27,7 +33,7 @@ const RootNavigation = StackNavigator(
 		Home: { 
 			screen: Home,
 			navigationOptions: ({ navigation }) => ({
-				title: 'Home',
+				title: homeTitle,
 				...style,
 				headerLeft: (<View></View>)
 			})
@@ -35,21 +41,21 @@ const RootNavigation = StackNavigator(
 		Quiz: { 
 			screen: Quiz,
 			navigationOptions: ({ navigation }) => ({
-				title: `Quiz ${navigation.state.params.deckTitle}`,
+				title: `${quizTitle} ${navigation.state.params.deckTitle}`,
 				...style
 			})
 		},
 		NewQuestion: { 
 			screen: NewQuestion,
 			navigationOptions: ({ navigation }) => ({
-				title: 'NewQuestion: ',
+				title: newQuestionTitle,
 				...style
 			})
 		},
 		DeckDetail: {
 			screen: DeckDetail,
 			navigationOptions: ({ navigation }) => ({
-				title: `Deck ${navigation.state.params.deckTitle}`,
+				title: `${deckTitle} ${navigation.state.params.deckTitle}`,
 				...style
 			})
 		}

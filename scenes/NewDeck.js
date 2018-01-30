@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Text, Modal } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { BasicButton, BasicInput, Container } from '../components'
+import { BasicButton, BasicInput, BasicModal, Container } from '../components'
 import { decks as decksActions } from '../actions'
 import { addDeck as createDeck } from '../utils/session.js'
 import { colorAccent } from '../constants/colors.js'
@@ -47,20 +47,6 @@ const NewDeckInput = glamorous.textInput(
     })
 )
 
-const NewDeckModalContainer = glamorous.view(
-    {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: 'grey'
-    }
-)
-
-const NewDeckInnerContainer = glamorous.view(
-    {
-        alignItems: 'center'
-    }
-)
-
 class NewDeck extends Component {
     constructor() {
         super()
@@ -81,7 +67,7 @@ class NewDeck extends Component {
             const { rootNavigation } = screenProps
             addDeck(deck)
 
-            rootNavigation.navigate('DeckDetail', { deck })
+            rootNavigation.navigate('DeckDetail', { deckTitle: deck.title })
             return
         }
 
@@ -126,21 +112,10 @@ class NewDeck extends Component {
                         text="Submit"
                         onPress={() => this.saveDeckInformations()} />
 
-                    <Modal
-                        visible={isAlertModalOpen}
-                        animationType={'slide'}
-                        onRequestClose={() => this.closeAlertModal()}>
-                        <NewDeckModalContainer>
-                            <NewDeckInnerContainer>
-                                <Text>
-                                    Title can't be empty
-                                </Text>
-                                <BasicButton
-                                    onPress={() => this.closeAlertModal()}
-                                    text="Ok" />
-                            </NewDeckInnerContainer>
-                        </NewDeckModalContainer>
-                    </Modal>
+                    <BasicModal
+                        message="Title can't be empty"
+                        isAlertModalOpen={isAlertModalOpen}
+                        closeAlertModal={() => this.closeAlertModal()} />
                 </KeyboardAwareScrollView>
             </Container>
         )

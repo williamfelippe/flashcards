@@ -1,8 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text } from 'react-native'
-import { BasicButton, Container, VoteButton } from '../components'
-import { clearLocalNotification, setLocalNotification } from '../utils/notification'
+import { View } from 'react-native'
+import { 
+    clearLocalNotification, 
+    setLocalNotification 
+} from '../utils/notification'
+import {
+    BasicButton,
+    Container,
+    VoteButton,
+    NoQuestions,
+    QuestionsResults
+} from '../components'
 import {
     colorBase,
     colorPrimary,
@@ -17,25 +26,6 @@ import glamorous from 'glamorous-native'
 
 const NEGATIVE = 0
     , POSITIVE = 1
-
-const NoQuestionsView = glamorous.view({
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 30
-})
-
-const NoQuestionsText = glamorous.text(
-    {
-        textAlign: 'center',
-        fontSize: 40,
-        opacity: 0.6
-    },
-    (props, theme) => ({
-        fontFamily: theme.fonts.primaryFontLight,
-        color: theme.colors.colorTextDefault
-    })
-)
 
 const QuizView = glamorous.view({
     flex: 1,
@@ -87,89 +77,6 @@ const QuizVoteButtonsWrapper = glamorous.view({
     justifyContent: 'space-around',
     marginBottom: 20
 })
-
-const QuestionResultTitle = glamorous.text(
-    {
-        fontSize: 20,
-        textAlign: 'center',
-        marginBottom: 10,
-        marginTop: 30
-    },
-    (props, theme) => ({
-        fontFamily: theme.fonts.primaryFontLight,
-        color: theme.colors.colorTextDefault
-    })
-)
-
-const QuestionResultScore = glamorous.text(
-    {
-        fontSize: 100,
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    (props, theme) => ({
-        fontFamily: theme.fonts.primaryFontBold,
-        color: theme.colors.colorPrimary
-    })
-)
-
-const QuestionResultButtonsWrapper = glamorous.view({
-    flexDirection: 'column',
-    alignSelf: 'center',
-    marginBottom: 20
-})
-
-const NoQuestions = () => {
-    return (
-        <NoQuestionsView>
-            <NoQuestionsText>
-                No questions here
-            </NoQuestionsText>
-        </NoQuestionsView>
-    )
-}
-
-const QuestionResults = ({
-    navigation,
-    statuses,
-    questions,
-    restartQuiz
-}) => {
-    const calculateResult = () => {
-        //Calcula a porcentagem
-        const total = statuses.reduce((previous, current) => previous + current, 0)
-        const percentage = total / questions.length * 100
-        return Math.round(percentage) 
-    }
-
-    return (
-        <Container>
-            <QuizView>
-                <QuestionResultTitle>
-                    Correct answers:
-                </QuestionResultTitle>
-
-                <QuestionResultScore>
-                    {calculateResult()}%
-                </QuestionResultScore>
-
-                <QuestionResultButtonsWrapper>
-                    <BasicButton
-                        text="Restart Quiz"
-                        backgroundColor={colorRed}
-                        underlayColor={colorDarkRed}
-                        onPress={restartQuiz} />
-
-                    <BasicButton
-                        text="Back to Deck"
-                        backgroundColor={colorGreen}
-                        underlayColor={colorDarkGreen}
-                        onPress={() => navigation.goBack()} />
-                </QuestionResultButtonsWrapper>
-            </QuizView>
-        </Container>
-    )
-}
 
 class Quiz extends Component {
 

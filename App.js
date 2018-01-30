@@ -46,8 +46,9 @@ const theme = {
 		primaryFontMedium: 'ubuntu-medium'
 	},
 	dimens: {
-		paddingLeft: 15,
-		paddingRight: 15
+		sidePadding: 10,
+		topAndBottomPadding: 15,
+		defaultPadding: 10
 	}
 }
 

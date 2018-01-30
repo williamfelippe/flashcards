@@ -93,10 +93,16 @@ class DeckCard extends Component {
 
         Animated
             .timing(opacity, { duration: 1200, toValue: 0 })
-            .start(() => {
-                const { navigation, deck } = this.props
-                navigation.navigate('DeckDetail', { deckTitle: deck.title })
-            })
+            .start(() => this.changeScreen())
+    }
+
+    changeScreen() {
+        this.setState({
+            opacity: new Animated.Value(1)
+        }, () => {
+            const { navigation, deck } = this.props
+            navigation.navigate('DeckDetail', { deckTitle: deck.title })
+        })
     }
 
     renderCircles() {

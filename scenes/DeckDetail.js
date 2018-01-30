@@ -41,29 +41,32 @@ class DeckDetail extends Component {
 
 		return (
 			<Container>
-				<View style={{ flex: 1 }}>
-					<DeckDetailView>
-						<DeckDetailTitle>
-							{deck.title.toUpperCase()}
-						</DeckDetailTitle>
+				{
+					(deck) &&
+					<View style={{ flex: 1 }}>
+						<DeckDetailView>
+							<DeckDetailTitle>
+								{deck.title.toUpperCase()}
+							</DeckDetailTitle>
 
-						<DeckDetailInfo>
-							{getAmountOfQuestions(deck.questions)}
-						</DeckDetailInfo>
-					</DeckDetailView>
+							<DeckDetailInfo>
+								{getAmountOfQuestions(deck.questions)}
+							</DeckDetailInfo>
+						</DeckDetailView>
 
-					<View>
-						<BasicButton
-							text="Add Card"
-							backgroundColor={colorRed}
-							onPress={() => navigation.navigate('NewQuestion', { deckTitle: deck.title })} />
+						<View>
+							<BasicButton
+								text="Add Card"
+								backgroundColor={colorRed}
+								onPress={() => navigation.navigate('NewQuestion', { deckTitle: deck.title })} />
 
-						<BasicButton
-							text="Start Quiz"
-							backgroundColor={colorGreen}
-							onPress={() => navigation.navigate('Quiz', { deckTitle: deck.title })} />
+							<BasicButton
+								text="Start Quiz"
+								backgroundColor={colorGreen}
+								onPress={() => navigation.navigate('Quiz', { deckTitle: deck.title })} />
+						</View>
 					</View>
-				</View>
+				}
 			</Container>
 		)
 	}
@@ -73,9 +76,9 @@ const mapStateToProps = ({ decks }, { navigation }) => {
 	const { byId } = decks
 	const { deckTitle } = navigation.state.params
 
-    return {
-        deck: byId[deckTitle]
-    }
+	return {
+		deck: byId[deckTitle]
+	}
 }
 
 export default connect(mapStateToProps)(DeckDetail)

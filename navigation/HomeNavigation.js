@@ -1,6 +1,10 @@
 import { TabNavigator } from 'react-navigation'
 import { Decks, NewDeck } from '../scenes'
 import {
+	decksTitle,
+	newDeckTitle
+} from '../strings/titles'
+import {
 	colorPrimary,
 	colorPrimaryDark,
 	colorAccent,
@@ -12,13 +16,13 @@ const HomeNavigation = TabNavigator(
 		Decks: {
 			screen: Decks,
 			navigationOptions: ({ navigation }) => ({
-				title: 'Decks'
+				title: decksTitle
 			})
 		},
 		NewDeck: {
 			screen: NewDeck,
 			navigationOptions: ({ navigation }) => ({
-				title: 'NewDeck'
+				title: newDeckTitle
 			})
 		}
 	},
