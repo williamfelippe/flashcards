@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Feather } from '@expo/vector-icons'
 import { NavigationActions } from 'react-navigation'
-import {
-    TouchableHighlight,
-    Animated,
-    Easing
-} from 'react-native'
+import { Animated, Easing } from 'react-native'
 import {
     colorIce,
     colorRed,
@@ -15,6 +11,8 @@ import {
 } from '../constants/colors.js'
 import getAmountOfQuestions from '../utils/getAmountOfQuestions.js'
 import glamorous from 'glamorous-native'
+
+const TouchableHighlight = glamorous.TouchableHighlight
 
 const DeckCardTouchableHighlight = glamorous.touchableHighlight(
     {
@@ -179,6 +177,23 @@ class DeckCard extends Component {
                             {deck && getAmountOfQuestions(deck.questions)}
                         </DeckCardInfo>
                     </DeckCardContentView>
+
+                    <DeckActions>
+                        <TouchableHighlight>
+                            <Feather
+                                name="edit-2"
+                                color={colorGreen}
+                                style={{ marginRight: 10 }}
+                                size={15} />
+                        </TouchableHighlight>
+
+                        <TouchableHighlight>
+                            <Feather
+                                name="trash-2"
+                                color={colorRed}
+                                size={15} />
+                        </TouchableHighlight>
+                    </DeckActions>
                 </DeckCardView>
             </DeckCardTouchableHighlight >
         )

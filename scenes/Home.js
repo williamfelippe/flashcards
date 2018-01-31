@@ -1,16 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { HomeNavigation } from '../navigation'
-import { Loader } from '../components'
+import { Loader, SearchButton } from '../components'
 import { getDecks, getDeck } from '../utils/session.js'
 import { decks as decksActions } from '../actions'
 
 class Home extends Component {
 
+    static navigationOptions = ({ navigation, screenProps }) => ({
+        headerRight: <SearchButton onPress={
+            () => this.setState({
+                searching: true
+            })
+        } />
+    })
+
     constructor(props) {
         super(props)
         this.state = {
-            loading: false
+            loading: false,
+            searching: false
         }
     }
 
@@ -40,7 +49,7 @@ class Home extends Component {
     }
 
     render() {
-        const { loading } = this.state
+        const { loading, searching } = this.state
         const { navigation } = this.props
 
         return (
@@ -48,7 +57,8 @@ class Home extends Component {
                 ? <Loader />
                 : <HomeNavigation
                     screenProps={{
-                        rootNavigation: navigation
+                        rootNavigation: navigation,
+                        searching
                     }} />
         )
     }

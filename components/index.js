@@ -7,6 +7,7 @@ import DeckCard from './DeckCard.js'
 import NoQuestions from './NoQuestions.js'
 import QuestionsResults from './QuestionsResults.js'
 import NoDecks from './NoDecks.js'
+import SearchButton from './SearchButton.js'
 
 export {
     Container,
@@ -17,5 +18,6 @@ export {
     DeckCard,
     NoQuestions,
     QuestionsResults,
-    NoDecks
+    NoDecks,
+    SearchButton
 }
